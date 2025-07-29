@@ -1,0 +1,161 @@
+.boton-carrito.combinado {
+  position: fixed;
+  bottom: 5px;
+  right: 20px;
+  color: white;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 50px;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  z-index: 10001;
+  cursor: pointer;
+  background: none; /* Eliminar fondo directo */
+}
+
+.contador-carrito {
+  background: red;
+  color: white;
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.carrito-flotante {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  justify-content: center;
+  align-items: center;
+}
+
+.carrito-flotante.mostrar {
+  display: flex;
+}
+
+.modal-contenido-carrito {
+  position: relative;
+  padding: 20px;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 340px;
+  max-height: 90vh;
+  overflow-y: auto;
+  background: none; /* Eliminar fondo directo */
+  z-index: 1;
+}
+
+.modal-contenido-carrito::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('../imgs/NocheRuta66.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  filter: brightness(0.5); /* solo aplica a la imagen */
+  border-radius: 10px;
+  z-index: -1; /* Coloca detrás del contenido */
+}
+
+
+  
+
+
+.cerrar-modal {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.carrito-lista {
+  list-style: none;
+  padding: 0;
+  margin: 15px 0;
+}
+
+.carrito-lista li {
+  color: hsl(0, 0%, 100%);
+  font-weight: bold; /* Texto en negrita */
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.carrito-lista button {
+  margin-left: 4px;
+  background: rgb(121, 96, 96);
+  border: none;
+  color: white;
+  border-radius: 4px;
+  padding: 2px 6px;
+  font-size: 14px;
+  cursor: pointer;
+}
+.carrito-lista button:nth-child(2) { background: #0a0; }
+.carrito-lista button:nth-child(3) {   background: rgb(121, 96, 96);
+}
+
+.btn-whatsapp {
+  display: block;
+  text-align: center;
+  margin-top: 15px;
+  background: #ffd700;
+  color: white;
+  padding: 10px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+@media (max-width: 480px) {
+  .modal-contenido-carrito {
+    width: 95%;
+    padding: 16px;
+  }
+  .btn-whatsapp {
+    font-size: 14px;
+    padding: 8px;
+  }
+  .contador-carrito {
+    
+    font-size: 10px;
+    padding: 2px 5px;
+  }
+}
+
+.acciones-carrito {
+  display: flex;
+  gap: 6px;
+  margin-top: 5px;
+}
+.acciones-carrito button {
+  flex: 1;
+  padding: 4px 0;
+  text-align: center;
+}
+
+@keyframes fadeInCarrito {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes fadeOutCarrito {
+  from { opacity: 1; transform: scale(1); }
+  to { opacity: 0; transform: scale(0.95); }
+}
+
+.modal-contenido-carrito.animar-entrada {
+  animation: fadeInCarrito 0.4s ease-out forwards;
+}
+.modal-contenido-carrito.animar-salida {
+  animation: fadeOutCarrito 0.4s ease-in forwards;
+}

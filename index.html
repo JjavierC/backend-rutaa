@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <link rel="icon" href="../Ruta-66/imgs/LogoOri" type="image/x-icon">
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ruta 66</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      font-family: sans-serif;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: url('./imgs/FondoJ.png') no-repeat center center fixed;
+      background-size: cover;
+      position: relative;
+    }
+
+    body::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: rgba(0,0,0,0.6);
+      backdrop-filter: blur(4px);
+      z-index: 1;
+    }
+
+    .home-wrapper {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      width: 90%;
+      max-width: 400px;
+    }
+
+    .logo {
+      width: 200px;
+      border-radius: none;
+      margin-bottom: 2rem;
+      
+    }
+
+    .btn {
+      width: 100%;
+      background-color: #3a022e;
+      color: white;
+      border: none;
+      padding: 1rem;
+      margin: 0.5rem 0;
+      font-size: 1.2rem;
+      border-radius: 12px;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background-color: #a80000;
+    }
+
+    .social-icons {
+      margin-top: 2rem;
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+    }
+
+    .social-icons a {
+      color: white;
+      font-size: 1.8rem;
+    }
+
+    /* 🔥 Anuncio */
+    .promo-banner {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 90vw;
+      max-width: 400px;
+      z-index: 9999;
+      background: transparent;
+      border-radius: 16px;
+      opacity: 0;
+      transition: all 0.5s ease;
+      box-shadow: 0 0 30px rgba(255, 100, 0, 0.6);
+    }
+
+    .promo-banner.show {
+      opacity: 1;
+      transform: translate(-50%, -50%);
+    }
+
+    .promo-image {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 16px;
+      cursor: pointer;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: #000000d0;
+      color: #fff;
+      border: none;
+      font-size: 1.3rem;
+      border-radius: 50%;
+      width: 32px;
+      height: 32px;
+      cursor: pointer;
+      z-index: 10000;
+    }
+    .close-btn2 {
+  
+  position: absolute;
+  top: 475px;
+  right: 165px;
+  background: #000000aa;
+  color: white;
+  border: none;
+  font-size: 1.2rem;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+}
+
+    
+
+    @media (max-width: 500px) {
+      .logo { width: 150apx; }
+      .btn { font-size: 1rem; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- 🔽 Contenido principal -->
+  <div class="home-wrapper">
+    <img src="./imgs/FONDOPNG.png" alt="Logo del restaurante" class="logo" />
+    
+    <button class="btn" onclick="window.location.href='pages/menu/menut.html'">Ver Menú u Ordenar</button>
+    <button class="btn" onclick="window.location.href='https://www.google.com/maps/place/Ruta+66/@11.0078173,-74.8010915,802m/data=!3m2!1e3!4b1!4m6!3m5!1s0x8ef42d1eeb56243d:0x509a50c813d46edf!8m2!3d11.0078121!4d-74.7964781!16s%2Fg%2F11h8fs2t2s?entry=ttu'">Ubicacion</button>
+    <button class="btn" onclick="window.location.href='https://api.whatsapp.com/send?phone=573006087815&text=Hola%20👋%2C%20quiero%20hacer%20una%20reserva%20📅%2C%20mi%20nombre%20es%3A'">Reservar</button>
+    <button class="btn" onclick="window.location.href='https://www.google.com/search?sca_esv=a55453b1a2e256c7&si=AMgyJEtREmoPL4P1I5IDCfuA8gybfVI2d5Uj7QMwYCZHKDZ-E8PIMicYPUFgkZj091SZ3lbg8OpX60ZlrQXxfAOQZfB774VzhrZ1xeF0-4IIbq4mAKSujeSShyDs-w0SFNAT4_uylFw5&q=Ruta+66+Opiniones&sa=X&ved=2ahUKEwitxNz2xNiNAxXpTDABHa9NLcgQ0bkNegQIMRAD&biw=1366&bih=627&dpr=1'">Cuentanos tu Experiencia</button>
+
+    <div class="social-icons">
+<div class="social-icons">
+  <a href="https://www.instagram.com/restobar_ruta66/" target="_blank"><i class="fab fa-instagram"></i></a>
+     <a href="https://api.whatsapp.com/send?phone=573006087815&text=Hola!%20Quiero%20hacer%20un%20pedido%2C%20mi%20nombre%20es%20" target="_blank"><i class="fab fa-whatsapp"></i></a>
+  <a href="https://www.facebook.com/ruta66baq" target="_blank"><i class="fab fa-facebook"></i></a>
+</div>
+
+    </div>
+  </div>
+
+  <!-- ⚙️ Script -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const banner = document.getElementById("promoBanner");
+      setTimeout(() => {
+        banner.classList.add("show");
+      }, 100);
+    });
+
+    function closePromo() {
+      const banner = document.getElementById("promoBanner");
+      banner.classList.remove("show");
+      setTimeout(() => {
+        banner.style.display = "none";
+      }, 500);
+    }
+  </script>
+</body>
+</html>

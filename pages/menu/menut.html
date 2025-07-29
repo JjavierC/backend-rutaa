@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Menú - Ruta 66</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Open+Sans&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../css/styles.css" />
+  <link rel="stylesheet" href="../../css/carrito.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          animation: {
+            'bounce-in': 'bounceIn 0.8s ease-out forwards',
+            'fade-out': 'fadeOut 0.5s ease-in forwards',
+            'float': 'float 3s ease-in-out infinite',
+          },
+          keyframes: {
+            bounceIn: {
+              '0%': { opacity: '0', transform: 'translate(-50%, -40%) scale(0.9)' },
+              '60%': { opacity: '1', transform: 'translate(-50%, -50%) scale(1.05)' },
+              '100%': { opacity: '1', transform: 'translate(-50%, -50%) scale(1)' }
+            },
+            fadeOut: {
+              '0%': { opacity: '1', transform: 'translate(-50%, -50%) scale(1)' },
+              '100%': { opacity: '0', transform: 'translate(-50%, -50%) scale(0.95)' }
+            },
+            float: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-10px)' }
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Estilos del anuncio consistentes con el anterior */
+    .promo-banner {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 90vw;
+      max-width: 400px;
+      z-index: 9999;
+      background: transparent;
+      border-radius: 16px;
+      opacity: 0;
+      box-shadow: 0 10px 25px rgba(255, 100, 0, 0.4);
+      display: none;
+    }
+    .promo-image {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 16px;
+      cursor: pointer;
+      border: 3px solid #FFD700;
+      transition: transform 0.3s ease;
+    }
+    .promo-image:hover {
+      transform: scale(1.02);
+    }
+    .close-btn {
+      position: absolute;
+      top: -15px;
+      right: -15px;
+      background: #000;
+      color: #FFD700;
+      border: 2px solid #FFD700;
+      font-size: 1.3rem;
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      cursor: pointer;
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+    .close-btn:hover {
+      background: #FFD700;
+      color: #000;
+      transform: rotate(90deg) scale(1.1);
+    }
+    .promo-badge {
+      position: absolute;
+      bottom: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #FFD700;
+      color: #000;
+      font-weight: bold;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      white-space: nowrap;
+    }
+  </style>
+</head>
+
+<body class="menu-page">
+
+  <!-- Anuncio con mismas animaciones que el anterior -->
+  <div id="promoBanner" class="promo-banner animate-bounce-in">
+    <a href="bebidas.html#cocteles" class="block relative">
+      <img src="../../imgs/anuncio cocteles.jpeg" alt="Promo 2x1 Ruta 66" class="promo-image" />
+    </a>
+    <button class="close-btn" onclick="closePromo()">×</button>
+    <div class="promo-badge animate-float">¡2x1 EN COCTELES!</div>
+  </div>
+
+  <header class="menu-header">
+    <a href="../../index.html" class="back-btn">←</a>
+    <span class="logo-text">RestoBar – Ruta 66</span>
+  </header>
+
+  <main class="menu-grid">
+    <a href="platos.html" class="menu-card">
+      <img src="../../imgs/nuevaPLATOS.jpeg" alt="Combos" />
+    </a>
+    <a href="bebidas.html" class="menu-card">
+      <img src="../../imgs/bebidasycocteles.png" alt="Platos" />
+    </a>
+    <a href="postresC.html" class="menu-card">
+      <img src="../../imgs/postresycafes.png" alt="Cafés y Postres" />
+    </a>
+    <a href="licores.html" class="menu-card">
+      <img src="../../imgs/vinosylicores.png" alt="Bebidas" />
+    </a>
+    <a href="combos.html" class="menu-card">
+      <img src="../../imgs/NuevoCOMBOS.jpeg" alt="Vinos" />
+    </a>
+  </main>
+
+  <div id="componente-carrito"></div>
+  <script src="../../js/carrito.js"></script>
+
+  <!-- Script idéntico al anterior -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const banner = document.getElementById("promoBanner");
+      
+      // Mostrar después de 1 segundo
+      setTimeout(() => {
+        banner.style.display = "block";
+        banner.classList.add("animate-bounce-in");
+        
+        // Ocultar después de 5 segundos
+        setTimeout(() => {
+          closePromo();
+        }, 2700);
+      }, 1000);
+    });
+
+    function closePromo() {
+      const banner = document.getElementById("promoBanner");
+      banner.classList.remove("animate-bounce-in");
+      banner.classList.add("animate-fade-out");
+      
+      setTimeout(() => {
+        banner.style.display = "none";
+      }, 500);
+    }
+    
+  </script>
+ <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const banner = document.getElementById("promoBanner");
+    const hoy = new Date();
+    const diaSemana = hoy.getDay(); // 0=Domingo, 1=Lunes, ..., 6=Sábado
+    
+    // Días en los que debe mostrarse (0=domingo, 1=lunes, 2=martes, 3=miércoles, 4=jueves)
+    const diasMostrar = [0, 1, 2, 3, 4];
+    
+    if (diasMostrar.includes(diaSemana)) {
+      // Mostrar después de 1 segundo
+      setTimeout(() => {
+        banner.style.display = "block";
+        setTimeout(() => {
+          banner.classList.add("animate-slide-in-up");
+          
+          // Ocultar después de 5 segundos
+          setTimeout(() => {
+            closePromo();
+          }, 2200);
+          
+        }, 50);
+      }, 1000);
+    } else {
+      // No mostrar el banner si no es uno de los días especificados
+      banner.style.display = "none";
+    }
+  });
+
+  function closePromo() {
+    const banner = document.getElementById("promoBanner");
+    banner.classList.remove("animate-slide-in-up");
+    banner.classList.add("animate-fade-out");
+    
+    setTimeout(() => {
+      banner.style.display = "none";
+    }, 500);
+  }
+</script>
+
+</body>

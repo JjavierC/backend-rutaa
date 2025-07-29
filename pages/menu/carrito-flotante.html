@@ -1,0 +1,16 @@
+<!-- Botón de carrito con contador -->
+<button class="boton-carrito combinado" onclick="abrirModalCarrito()">
+  🛒 <span id="carrito-contador" class="contador-carrito">0</span>
+</button>
+
+<!-- Modal del carrito -->
+<div id="modal-carrito" class="carrito-flotante" onclick="cerrarModalCarrito(event)">
+  <div class="modal-contenido-carrito">
+    <span class="cerrar-modal" onclick="cerrarModalCarrito()">&times;</span>
+    <h2>🛒 Tu Pedido</h2>
+    <ul id="lista-carrito" class="carrito-lista"></ul>
+    <a id="btn-hacer-pedido" target="_blank" class="btn-whatsapp">
+      📩 HACER PEDIDO
+    </a>
+  </div>
+</div>

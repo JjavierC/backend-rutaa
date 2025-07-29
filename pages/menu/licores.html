@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Vinos &amp; Licores | Ruta 66</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&amp;family=Open+Sans&amp;display=swap" rel="stylesheet"/>
+<link href="../../css/combos.css" rel="stylesheet"/>
+<link href="../../css/platos.css" rel="stylesheet"/>
+<link href="../../css/carrito.css" rel="stylesheet"/>
+</head>
+<body class="licores-page">
+<header class="menu-header">
+<a class="back-btn" href="../menu/menut.html">←</a>
+<span class="logo-text">Vinos &amp; Licores</span>
+</header>
+<div class="contenedor-licores">
+<button id="toggle-categorias"></button>
+<aside class="filtro-categorias">
+<h3>Categorías</h3>
+<ul>
+<li class="activo" onclick="filtrar('todos')">Todos</li>
+<li onclick="filtrar('cervezas')">Cervezas</li>
+<li onclick="filtrar('micheladas')">Micheladas</li>
+<li onclick="filtrar('licores')">Licores</li>
+<li onclick="filtrar('tragos')">Tragos</li>
+<li onclick="filtrar('vino-tinto')">Vino Tinto</li>
+<li onclick="filtrar('vino-rosado')">Vino Rosado y Espumantes</li>
+<li onclick="filtrar('vino-blanco')">Vino Blanco</li>
+</ul>
+</aside>
+<main class="contenedor-productos">
+<h2 class="titulo-categoria" id="categoria-titulo">Todos</h2>
+<div class="grid-productos" id="productos-container">
+<!-- 🔸 CERBEZAS -->
+<section class="categoria-productos cervezas">
+<!-- Productos de cervezas aquí -->
+<div class="producto-card cervezas">
+<img alt="Heineken" src="../../imgs/cervezas/heineken.png"/>
+<h4>Heineken</h4>
+<p>$11.000</p>
+<button onclick="agregarAlCarrito('Heineken', 11000)">Añadir</button>
+</div>
+<div class="producto-card cervezas">
+<img alt="Sol" src="../../imgs/cervezas/sol.png"/>
+<h4>Sol</h4>
+<p>$11.000</p>
+<button onclick="agregarAlCarrito('Sol', 11000)">Añadir</button>
+</div>
+<div class="producto-card cervezas nuevo">
+<img alt="Tres Cordilleras Mulata" src="../../imgs/cervezas/tres-mulata.png"/>
+<h4>Tres Cordilleras Mulata</h4>
+<p>$13.000</p>
+<button onclick="agregarAlCarrito('Tres Cordilleras Mulata', 13000)">Añadir</button>
+</div>
+<div class="producto-card cervezas nuevo">
+<img alt="Tres Cordilleras Blanca" src="../../imgs/cervezas/tres-blanca.png"/>
+<h4>Tres Cordilleras Blanca</h4>
+<p>$13.000</p>
+<button onclick="agregarAlCarrito('Tres Cordilleras Blanca', 13000)">Añadir</button>
+</div>
+<div class="producto-card cervezas nuevo">
+<img alt="Tres Cordilleras Rosada" src="../../imgs/cervezas/tres-rosada.png"/>
+<h4>Tres Cordilleras Rosada</h4>
+<p>$13.000</p>
+<button onclick="agregarAlCarrito('Tres Cordilleras Rosada', 13000)">Añadir</button>
+</div>
+<div class="producto-card cervezas">
+<img alt="Corona" src="../../imgs/cervezas/corona.png"/>
+<h4>Corona</h4>
+<p>$13.000</p>
+<button onclick="agregarAlCarrito('Corona', 13000)">Añadir</button>
+</div>
+<div class="producto-card cervezas">
+<img alt="Stella Artois" src="../../imgs/cervezas/stella.png"/>
+<h4>Stella Artois</h4>
+<p>$13.000</p>
+<button onclick="agregarAlCarrito('Stella Artois', 13000)">Añadir</button>
+</div>
+<div class="producto-card cervezas">
+<img alt="Club Colombia Dorada" src="../../imgs/cervezas/club-colombia.png"/>
+<h4>Club Colombia Dorada</h4>
+<p>$9.000</p>
+<button onclick="agregarAlCarrito('Club Colombia Dorada', 9000)">Añadir</button>
+</div>
+<div class="producto-card cervezas">
+<img alt="Jarra De Refajo" src="../../imgs/cervezas/refajo.png"/>
+<h4>Jarra De Refajo</h4>
+<p>$21.000</p>
+<button onclick="agregarAlCarrito('Jarra De Refajo', 21000)">Añadir</button>
+</div>
+<!-- Cubetazos -->
+<div class="producto-card cervezas">
+<img alt="Cubetazo Heineken" src="../../imgs/cervezas/cubetazo-heineken.png"/>
+<h4>Cubetazo Heineken</h4>
+<p>$55.000</p>
+<button onclick="agregarAlCarrito('Cubetazo Heineken', 55000)">Añadir</button>
+</div>
+<div class="producto-card cervezas">
+<img alt="Cubetazo Sol" src="../../imgs/cervezas/cubetazo-sol.png"/>
+<h4>Cubetazo Sol</h4>
+<p>$55.000</p>
+<button onclick="agregarAlCarrito('Cubetazo Sol', 55000)">Añadir</button>
+</div>
+<div class="producto-card cervezas nuevo">
+<img alt="Cubetazo Corona" src="../../imgs/cervezas/cubetazo-corona.png"/>
+<h4>Cubetazo Corona</h4>
+<p>$65.000</p>
+<button onclick="agregarAlCarrito('Cubetazo Corona', 65000)">Añadir</button>
+</div>
+<div class="producto-card cervezas nuevo">
+<img alt="Cubetazo Stella" src="../../imgs/cervezas/cubetazo-stella.png"/>
+<h4>Cubetazo Stella</h4>
+<p>$65.000</p>
+<button onclick="agregarAlCarrito('Cubetazo Stella', 65000)">Añadir</button>
+</div>
+<div class="producto-card cervezas nuevo">
+<img alt="Cubetazo Club Colombia" src="../../imgs/cervezas/cubetazo-club.png"/>
+<h4>Cubetazo Club Colombia</h4>
+<p>$42.500</p>
+<button onclick="agregarAlCarrito('Cubetazo Club Colombia', 42500)">Añadir</button>
+</div>
+<div class="producto-card cervezas nuevo">
+<img alt="Cubetazo Tres Cordilleras" src="../../imgs/cervezas/cubetazo-tres-cordilleras.png"/>
+<h4>Cubetazo Tres Cordilleras</h4>
+<p>$65.000</p>
+<button onclick="agregarAlCarrito('Cubetazo Tres Cordilleras', 65000)">Añadir</button>
+</div>
+<!-- Otras -->
+<div class="producto-card cervezas">
+<img alt="Smirnoff Roja 275 ml" src="../../imgs/cervezas/smirnoff-roja.png"/>
+<h4>Smirnoff Roja 275 ML</h4>
+<p>$16.500</p>
+<button onclick="agregarAlCarrito('Smirnoff Roja 275 ML', 16500)">Añadir</button>
+</div>
+<div class="producto-card cervezas">
+<img alt="Cubetazo Smirnoff" src="../../imgs/cervezas/cubetazo-smirnoff.png"/>
+<h4>Cubetazo Smirnoff</h4>
+<p>$82.500</p>
+<button onclick="agregarAlCarrito('Cubetazo Smirnoff', 82500)">Añadir</button>
+</div>
+<div class="producto-card cervezas">
+<img alt="Modelo" src="../../imgs/cervezas/modelo.png"/>
+<h4>Modelo</h4>
+<p>$18.000</p>
+<button onclick="agregarAlCarrito('Modelo', 18000)">Añadir</button>
+</div>
+</section>
+<!-- 🔸 MICHELADAS -->
+<section class="categoria-productos micheladas">
+<!-- Productos de micheladas aquí -->
+<div class="producto-card micheladas">
+<img alt="Michelada Tradicional" src="../../imgs/micheladas/nomal mich.png"/>
+<h4>Michelada Tradicional</h4>
+<p>$3.000</p>
+<button onclick="agregarAlCarrito('Michelada Tradicional', 3000)">Añadir</button>
+</div>
+<div class="producto-card micheladas">
+<img alt="Michelada Blue" src="../../imgs/micheladas/michelada-blue.png"/>
+<h4>Michelada Blue</h4>
+<p>$4.000</p>
+<button onclick="agregarAlCarrito('Michelada Blue', 4000)">Añadir</button>
+</div>
+</section>
+<!-- 🔸 LICORES -->
+<section class="categoria-productos licores">
+<!-- Productos de licores aquí -->
+<div class="producto-card licores">
+<img alt="Tequila Don Julio 70 750" src="../../imgs/licores/don-julio-70.png"/>
+<h4>Tequila Don Julio 70 750</h4>
+<span class="etiqueta-destacado">⭐ Recomendado</span>
+<p>$550.000</p>
+<button onclick="agregarAlCarrito('Tequila Don Julio 70 750', 550000)">Añadir</button>
+</div>
+<div class="producto-card licores">
+<img alt="Whisky Old Parr 750" src="../../imgs/licores/old-parr-750.png"/>
+<h4>Whisky Old Parr 750</h4>
+<span class="etiqueta-destacado">⭐ Recomendado</span>
+<p>$280.000</p>
+<button onclick="agregarAlCarrito('Whisky Old Parr 750', 280000)">Añadir</button>
+</div>
+<div class="producto-card licores">
+<img alt="Whisky Old Parr 500" src="../../imgs/licores/old-parr-500.png"/>
+<h4>Whisky Old Parr 500</h4>
+<span class="etiqueta-destacado">⭐ Recomendado</span>
+<p>$210.000</p>
+<button onclick="agregarAlCarrito('Whisky Old Parr 500', 210000)">Añadir</button>
+</div>
+<div class="producto-card licores">
+<img alt="Tequila 1800 Reposado 750" src="../../imgs/licores/tequila-1800-reposado.png"/>
+<h4>Tequila 1800 Reposado 750</h4>
+<p>$310.000</p>
+<button onclick="agregarAlCarrito('Tequila 1800 Reposado 750', 310000)">Añadir</button>
+</div>
+<div class="producto-card licores">
+<img alt="Whisky Buchanan’s Master 750" src="../../imgs/licores/buchanans-master.png"/>
+<h4>Whisky Buchanan’s Master 750</h4>
+<span class="etiqueta-destacado">⭐ Recomendado</span>
+<p>$310.000</p>
+<button onclick="agregarAlCarrito('Whisky Buchanan’s Master 750', 310000)">Añadir</button>
+</div>
+<div class="producto-card licores">
+<img alt="Whisky Buchanan’s deluxe 375" src="../../imgs/licores/buchanans-deluxe-375.png"/>
+<h4>Whisky Buchanan’s deluxe 375</h4>
+<span class="etiqueta-destacado">⭐ Recomendado</span>
+<p>$160.000</p>
+<button onclick="agregarAlCarrito('Whisky Buchanan’s deluxe 375', 160000)">Añadir</button>
+</div>
+<div class="producto-card licores">
+<img alt="Whisky Buchanan’s 18 años 750" src="../../imgs/licores/buchanans-18.png"/>
+<h4>Whisky Buchanan’s 18 años 750</h4>
+<span class="etiqueta-destacado">⭐ Recomendado</span>
+<p>$580.000</p>
+<button onclick="agregarAlCarrito('Whisky Buchanan’s 18 años 750', 580000)">Añadir</button>
+</div>
+<div class="producto-card licores">
+<img alt="Whisky Buchanan’s deluxe 750" src="../../imgs/licores/buchanans-deluxe-750.png"/>
+<h4>Whisky Buchanan’s deluxe 750</h4>
+<span class="etiqueta-destacado">⭐ Recomendado</span>
+<p>$280.000</p>
+<button onclick="agregarAlCarrito('Whisky Buchanan’s deluxe 750', 280000)">Añadir</button>
+</div>
+<div class="producto-card licores">
+<img alt="Whisky Jack Daniel’s 750" src="../../imgs/licores/jack-daniels.png"/>
+<h4>Whisky Jack Daniel’s 750</h4>
+<p>$220.000</p>
+<button onclick="agregarAlCarrito('Whisky Jack Daniel’s 750', 220000)">Añadir</button>
+</div>
+<div class="producto-card licores">
+<img alt="Jagermeister 750" src="../../imgs/licores/jagermeister.png"/>
+<h4>Jagermeister 750</h4>
+<p>$220.000</p>
+<button onclick="agregarAlCarrito('Jagermeister 750', 220000)">Añadir</button>
+</div>
+<div class="producto-card licores">
+<img alt="Tequila José Cuervo Especial 750" src="../../imgs/licores/tequila-cuervo-especial.png"/>
+<h4>Tequila José Cuervo Especial 750</h4>
+<p>$160.000</p>
+<button onclick="agregarAlCarrito('Tequila José Cuervo Especial 750', 160000)">Añadir</button>
+</div>
+<div class="producto-card licores">
+<img alt="Tequila José Cuervo 375" src="../../imgs/licores/tequila-cuervo-375.png"/>
+<h4>Tequila José Cuervo 375</h4>
+<p>$100.000</p>
+<button onclick="agregarAlCarrito('Tequila José Cuervo 375', 100000)">Añadir</button>
+</div>
+<div class="producto-card licores">
+<img alt="Ginebra Hendrick 750" src="../../imgs/licores/ginebra-hendrick.png"/>
+<h4>Ginebra Hendrick 750</h4>
+<p>$390.000</p>
+<button onclick="agregarAlCarrito('Ginebra Hendrick 750', 390000)">Añadir</button>
+</div>
+<div class="producto-card licores">
+<img alt="Tequila Herradura Reposado 750" src="../../imgs/licores/tequila-herradura-reposado.png"/>
+<h4>Tequila Herradura Reposado 750</h4>
+<p>$350.000</p>
+<button onclick="agregarAlCarrito('Tequila Herradura Reposado 750', 350000)">Añadir</button>
+</div>
+<div class="producto-card licores">
+<img alt="Tequila Herradura Blanco 750" src="../../imgs/licores/tequila-herradura-blanco.png"/>
+<h4>Tequila Herradura Blanco 750</h4>
+<p>$350.000</p>
+<button onclick="agregarAlCarrito('Tequila Herradura Blanco 750', 350000)">Añadir</button>
+</div>
+<div class="producto-card licores">
+<img alt="Tequila José Cuervo Silver 750" src="../../imgs/licores/cuervo-silver-750.png"/>
+<h4>Tequila José Cuervo Silver 750</h4>
+<p>$160.000</p>
+<button onclick="agregarAlCarrito('Tequila José Cuervo Silver 750', 160000)">Añadir</button>
+</div>
+<div class="producto-card licores">
+<img alt="Tequila José Cuervo Silver 375" src="../../imgs/licores/cuervo-silver-375.png"/>
+<h4>Tequila José Cuervo Silver 375</h4>
+<p>$100.000</p>
+<button onclick="agregarAlCarrito('Tequila José Cuervo Silver 375', 100000)">Añadir</button>
+</div>
+<div class="producto-card licores">
+<img alt="Tequila José Cuervo Tradicional 750" src="../../imgs/licores/cuervo-tradicional.png"/>
+<h4>Tequila José Cuervo Tradicional 750</h4>
+<p>$230.000</p>
+<button onclick="agregarAlCarrito('Tequila José Cuervo Tradicional 750', 230000)">Añadir</button>
+</div>
+<div class="producto-card licores">
+<img alt="Tequila Cazadores Reposado 750" src="../../imgs/licores/tequila-cazadores-reposado.png"/>
+<h4>Tequila Cazadores Reposado 750</h4>
+<p>$220.000</p>
+<button onclick="agregarAlCarrito('Tequila Cazadores Reposado 750', 220000)">Añadir</button>
+</div>
+<div class="producto-card licores">
+<img alt="Tequila Cazadores Blanco 750" src="../../imgs/licores/tequila-cazadores-blanco.png"/>
+<h4>Tequila Cazadores Blanco 750</h4>
+<p>$210.000</p>
+<button onclick="agregarAlCarrito('Tequila Cazadores Blanco 750', 210000)">Añadir</button>
+</div>
+<div class="producto-card licores">
+<img alt="Tequila 1800 Blanco 750" src="../../imgs/licores/tequila-1800-blanco.png"/>
+<h4>Tequila 1800 Blanco 750</h4>
+<p>$300.000</p>
+<button onclick="agregarAlCarrito('Tequila 1800 Blanco 750', 300000)">Añadir</button>
+</div>
+<div class="producto-card licores">
+<img alt="Tequila Don Julio Reposado 750" src="../../imgs/licores/tequila-don-julio-reposado.png"/>
+<h4>Tequila Don Julio Reposado 750</h4>
+<p>$450.000</p>
+<button onclick="agregarAlCarrito('Tequila Don Julio Reposado 750', 450000)">Añadir</button>
+</div>
+<div class="producto-card licores">
+<img alt="Tequila Patrón Blanco 750" src="../../imgs/licores/tequila-patron-blanco.png"/>
+<h4>Tequila Patrón Blanco 750</h4>
+<p>$360.000</p>
+<button onclick="agregarAlCarrito('Tequila Patrón Blanco 750', 360000)">Añadir</button>
+</div>
+<div class="producto-card licores">
+<img alt="Tequila Mal De Amor 750" src="../../imgs/licores/tequila-mal-de-amor.png"/>
+<h4>Tequila Mal De Amor 750</h4>
+<p>$220.000</p>
+<button onclick="agregarAlCarrito('Tequila Mal De Amor 750', 220000)">Añadir</button>
+</div>
+<div class="producto-card licores">
+<img alt="Ginebra Hendricks 375" src="../../imgs/licores/ginebra-hendrick-375.png"/>
+<h4>Ginebra Hendricks 375</h4>
+<p>$220.000</p>
+<button onclick="agregarAlCarrito('Ginebra Hendricks 375', 220000)">Añadir</button>
+</div>
+<div class="producto-card licores">
+<img alt="Ginebra Tanqueray Ten 750" src="../../imgs/licores/tanqueray-ten.png"/>
+<h4>Ginebra Tanqueray Ten 750</h4>
+<p>$395.000</p>
+<button onclick="agregarAlCarrito('Ginebra Tanqueray Ten 750', 395000)">Añadir</button>
+</div>
+<div class="producto-card licores">
+<img alt="Ginebra Tanqueray Export 750" src="../../imgs/licores/tanqueray-export.png"/>
+<h4>Ginebra Tanqueray Export 750</h4>
+<p>$280.000</p>
+<button onclick="agregarAlCarrito('Ginebra Tanqueray Export 750', 280000)">Añadir</button>
+</div>
+<div class="producto-card licores">
+<img alt="Whisky Sello Rojo 750" src="../../imgs/licores/sello-rojo.png"/>
+<h4>Whisky Sello Rojo 750</h4>
+<p>$180.000</p>
+<button onclick="agregarAlCarrito('Whisky Sello Rojo 750', 180000)">Añadir</button>
+</div>
+<div class="producto-card licores">
+<img alt="Whisky Sello Negro 750" src="../../imgs/licores/sello-negro.png"/>
+<h4>Whisky Sello Negro 750</h4>
+<p>$280.000</p>
+<button onclick="agregarAlCarrito('Whisky Sello Negro 750', 280000)">Añadir</button>
+</div>
+<div class="producto-card licores">
+<img alt="Whisky Doble Black 750" src="../../imgs/licores/doble-black.png"/>
+<h4>Whisky Doble Black 750</h4>
+<p>$310.000</p>
+<button onclick="agregarAlCarrito('Whisky Doble Black 750', 310000)">Añadir</button>
+</div>
+<div class="producto-card licores">
+<img alt="Crema De Whisky Baileys 700" src="../../imgs/licores/baileys-700.png"/>
+<h4>Crema De Whisky Baileys 700</h4>
+<p>$150.000</p>
+<button onclick="agregarAlCarrito('Crema De Whisky Baileys 700', 150000)">Añadir</button>
+</div>
+<div class="producto-card licores">
+<img alt="Crema De Whisky Baileys Litro" src="../../imgs/licores/baileys-litro.png"/>
+<h4>Crema De Whisky Baileys Litro</h4>
+<p>$190.000</p>
+<button onclick="agregarAlCarrito('Crema De Whisky Baileys Litro', 190000)">Añadir</button>
+</div>
+<div class="producto-card licores">
+<img alt="Tequila Patrón Reposado 750" src="../../imgs/licores/tequila-patron-reposado.png"/>
+<h4>Tequila Patrón Reposado 750</h4>
+<p>$360.000</p>
+<button onclick="agregarAlCarrito('Tequila Patrón Reposado 750', 360000)">Añadir</button>
+</div>
+
+</section>
+<!-- 🔸 TRAGOS -->
+<section class="categoria-productos tragos">
+<!-- Productos de tragos aquí -->
+<div class="producto-card tragos">
+<img alt="Trago Old Parr" src="../../imgs/tragos/trago-old-parr.png"/>
+<h4>Trago Old Parr</h4>
+<p>$30.000</p>
+<button onclick="agregarAlCarrito('Trago Old Parr', 30000)">Añadir</button>
+</div>
+<div class="producto-card tragos">
+<img alt="Trago Buchanan’s deluxe" src="../../imgs/tragos/trago-buchanans-deluxe.png"/>
+<h4>Trago Buchanan’s deluxe</h4>
+<p>$30.000</p>
+<button onclick="agregarAlCarrito('Trago Buchanan’s deluxe', 30000)">Añadir</button>
+</div>
+</section>
+<!-- 🔸 VINO TINTO -->
+<section class="categoria-productos vino-tinto">
+<!-- Productos de vino tinto aquí -->
+<div class="producto-card vino-tinto">
+<img alt="Vino Tinto Brisa" src="../../imgs/vinos/vino-brisa.png"/>
+<h4>Vino Tinto Brisa</h4>
+<p>$80.000</p>
+<button onclick="agregarAlCarrito('Vino Tinto Brisa', 80000)">Añadir</button>
+</div>
+<div class="producto-card vino-tinto">
+<img alt="Vino Tinto Frontera" src="../../imgs/vinos/vino-frontera.png"/>
+<h4>Vino Tinto Frontera</h4>
+<p>$85.000</p>
+<button onclick="agregarAlCarrito('Vino Tinto Frontera', 85000)">Añadir</button>
+</div>
+<div class="producto-card vino-tinto">
+<img alt="La Celia" src="../../imgs/vinos/vino-la-celia.png"/>
+<h4>La celia</h4>
+<p>$140.000</p>
+<button onclick="agregarAlCarrito('La celia', 140000)">Añadir</button>
+</div>
+<div class="producto-card vino-tinto">
+<img alt="Las Mercedes" src="../../imgs/vinos/vino-las-mercedes.png"/>
+<h4>Las mercedes</h4>
+<p>$150.000</p>
+<button onclick="agregarAlCarrito('Las mercedes', 150000)">Añadir</button>
+</div>
+<div class="producto-card vino-tinto">
+<img alt="Santa Carolina" src="../../imgs/vinos/vino-santa-carolina.png"/>
+<h4>Santa Carolina</h4>
+<p>$140.000</p>
+<button onclick="agregarAlCarrito('Santa Carolina', 140000)">Añadir</button>
+</div>
+<div class="producto-card vino-tinto">
+<img alt="Vino Tinto Santa Ana" src="../../imgs/vinos/vino-santa-ana.png"/>
+<h4>Vino Tinto Santa Ana</h4>
+<p>$70.000</p>
+<button onclick="agregarAlCarrito('Vino Tinto Santa Ana', 70000)">Añadir</button>
+</div>
+<div class="producto-card vino-tinto">
+<img alt="Vino Tinto Terra Vega" src="../../imgs/vinos/vino-terra-vega.png"/>
+<h4>Vino Tinto Terra Vega</h4>
+<p>$90.000</p>
+<button onclick="agregarAlCarrito('Vino Tinto Terra Vega', 90000)">Añadir</button>
+</div>
+<div class="producto-card vino-tinto">
+<img alt="Vino Tinto Las Moras Black Level" src="../../imgs/vinos/vino-las-moras.png"/>
+<h4>Vino Tinto Las Moras Black Level</h4>
+<p>$110.000</p>
+<button onclick="agregarAlCarrito('Vino Tinto Las Moras Black Level', 110000)">Añadir</button>
+</div>
+<div class="producto-card vino-tinto">
+<img alt="Vino Tinto Santa Rita 3 Medallas" src="../../imgs/vinos/vino-santa-rita.png"/>
+<h4>Vino Tinto Santa Rita 3 Medallas</h4>
+<p>$105.000</p>
+<button onclick="agregarAlCarrito('Vino Tinto Santa Rita 3 Medallas', 105000)">Añadir</button>
+</div>
+<div class="producto-card vino-tinto">
+<img alt="Vino Tinto Santa Rita 120" src="../../imgs/vinos/vino-santa-rita-120.png"/>
+<h4>Vino Tinto Santa Rita 120</h4>
+<p>$110.000</p>
+<button onclick="agregarAlCarrito('Vino Tinto Santa Rita 120', 110000)">Añadir</button>
+</div>
+<div class="producto-card vino-tinto">
+<img alt="Vino Tinto Diablo Dark Red" src="../../imgs/vinos/vino-diablo.png"/>
+<h4>Vino Tinto Diablo Dark Red</h4>
+<p>$175.000</p>
+<button onclick="agregarAlCarrito('Vino Tinto Diablo Dark Red', 175000)">Añadir</button>
+</div>
+<div class="producto-card vino-tinto">
+<img alt="Vino Tinto Gato Negro 9 Lives" src="../../imgs/vinos/vino-gato-negro.png"/>
+<h4>Vino Tinto Gato Negro 9 Lives</h4>
+<p>$140.000</p>
+<button onclick="agregarAlCarrito('Vino Tinto Gato Negro 9 Lives', 140000)">Añadir</button>
+</div>
+</section>
+<!-- 🔸 VINO ROSADO Y ESPUMANTES -->
+<section class="categoria-productos vino-rosado">
+<!-- Productos de vino rosado aquí -->
+<div class="producto-card vino-rosado">
+<img alt="Santa Helena (Siglo De Oro)" src="../../imgs/vinos/vino-rosado-santa-helena.png"/>
+<h4>Santa Helena (Siglo De Oro)</h4>
+<p>$110.000</p>
+<button onclick="agregarAlCarrito('Santa Helena (Siglo De Oro)', 110000)">Añadir</button>
+</div>
+<div class="producto-card vino-rosado">
+<img alt="Andre rose" src="../../imgs/vinos/vino-rosado-andre.png"/>
+<h4>Andre rose</h4>
+<p>$100.000</p>
+<button onclick="agregarAlCarrito('Andre rose', 100000)">Añadir</button>
+</div>
+<div class="producto-card vino-rosado">
+<img alt="Vino Rose Santa Ana" src="../../imgs/vinos/vino-rosado-santa-ana.png"/>
+<h4>Vino Rose Santa Ana</h4>
+<p>$70.000</p>
+<button onclick="agregarAlCarrito('Vino Rose Santa Ana', 70000)">Añadir</button>
+</div>
+<div class="producto-card vino-rosado">
+<img alt="Jp chanet rose" src="../../imgs/vinos/vino-rosado-jp-chanet.png"/>
+<h4>Jp chanet rose</h4>
+<p>$130.000</p>
+<button onclick="agregarAlCarrito('Jp chanet rose', 130000)">Añadir</button>
+</div>
+<div class="producto-card vino-rosado">
+<img alt="Vino Rose Terra Vega" src="../../imgs/vinos/vino-rosado-terra-vega.png"/>
+<h4>Vino Rose Terra Vega</h4>
+<p>$90.000</p>
+<button onclick="agregarAlCarrito('Vino Rose Terra Vega', 90000)">Añadir</button>
+</div>
+</section>
+<!-- 🔸 VINO BLANCO -->
+<section class="categoria-productos vino-blanco">
+<!-- Productos de vino blanco aquí -->
+<div class="producto-card vino-blanco">
+<img alt="Vino Blanco Santa Carolina" src="../../imgs/vinos/vino-blanco-santa-carolina.png"/>
+<h4>Vino Blanco Santa Carolina</h4>
+<p>$140.000</p>
+<button onclick="agregarAlCarrito('Vino Blanco Santa Carolina', 140000)">Añadir</button>
+</div>
+<div class="producto-card vino-blanco">
+<img alt="Vino Blanco Santa Rita" src="../../imgs/vinos/vino-blanco-santa-rita.png"/>
+<h4>Vino Blanco Santa Rita</h4>
+<p>$120.000</p>
+<button onclick="agregarAlCarrito('Vino Blanco Santa Rita', 120000)">Añadir</button>
+</div>
+<div class="producto-card vino-blanco">
+<img alt="Vino Blanco Siglo de Oro" src="../../imgs/vinos/vino-blanco-siglo-oro.png"/>
+<h4>Vino Blanco Siglo de Oro</h4>
+<p>$80.000</p>
+<button onclick="agregarAlCarrito('Vino Blanco Siglo de Oro', 80000)">Añadir</button>
+</div>
+<div class="producto-card vino-blanco">
+<img alt="Vino Blanco Terra Vega" src="../../imgs/vinos/vino-blanco-terra-vega.png"/>
+<h4>Vino Blanco Terra Vega</h4>
+<p>$90.000</p>
+<button onclick="agregarAlCarrito('Vino Blanco Terra Vega', 90000)">Añadir</button>
+</div>
+<div class="producto-card vino-blanco">
+<img alt="Vino Blanco Santa Ana Reserve" src="../../imgs/vinos/vino-blanco-santa-ana.png"/>
+<h4>Vino Blanco Santa Ana Reserve</h4>
+<p>$160.000</p>
+<button onclick="agregarAlCarrito('Vino Blanco Santa Ana Reserve', 160000)">Añadir</button>
+</div>
+</section>
+</div>
+</main>
+</div>
+<script src="../../js/licores.js"></script>
+<div id="componente-carrito"></div>
+<div id="botones-flotantes">
+  <button id="btn-categorias">Categorías</button>
+  <button id="btn-atras">Atrás</button>
+</div>
+
+<script src="../../js/botonesFlotantes.js"></script>
+<script src="../../js/carrito.js"></script>
+
+</body>
+</html>

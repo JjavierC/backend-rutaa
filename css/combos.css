@@ -1,0 +1,294 @@
+/* Estilos existentes de body, menu-header, etc. que ya tienes en combos.css */
+body {
+    background-color: #111;
+    color: #fff;
+    font-family: 'Open Sans', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.menu-header {
+    background-color: rgba(0, 0, 0, 0.9);
+    padding: 1em 2em;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 3px solid #FFD700;
+    flex-wrap: wrap;
+}
+
+.menu-header .logo-text {
+    color: #FFD700;
+    font-family: 'Cinzel', serif;
+    font-size: 1.5rem;
+}
+
+.back-btn {
+    font-size: 1.5rem;
+    color: #FFD700;
+    text-decoration: none;
+}
+
+.producto-grid {
+    display: flex;
+    justify-content: center;
+    padding: 3em 2em;
+    gap: 2em;
+    flex-wrap: wrap;
+}
+
+/* --- ESTILOS MODIFICADOS PARA .producto-card en combos.css --- */
+.producto-card {
+    position: relative;
+    border-radius: 10px;
+    padding: 0; /* Quita el padding general para que la imagen ocupe todo el ancho arriba */
+    overflow: hidden; /* Importante para que la imagen no se desborde del border-radius */
+    text-align: center;
+    color: white; /* Color de texto predeterminado para el card */
+    border: 1px solid #FFD700; /* Borde dorado de Ruta 66 */
+    box-shadow: 0 4px 12px rgba(255, 215, 0, 0.15); /* Sombra dorada */
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
+    
+    display: flex; /* Habilita Flexbox para organizar contenido verticalmente */
+    flex-direction: column; /* Apila imagen, texto y botones verticalmente */
+    width: 300px; /* Ancho fijo para la tarjeta, ajusta si necesitas responsividad diferente */
+    /* Aseguramos que el contenido se estire para llenar el espacio, manteniendo los botones abajo */
+    justify-content: space-between; /* Distribuye el espacio entre los elementos flex */
+}
+
+/* El pseudo-elemento before para el fondo rústico se mantiene igual */
+.producto-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('../imgs/fondodeloscuadros.jpeg'); /* Tu fondo rústico */
+    background-size: cover;
+    background-position: center;
+    filter: blur(6px) brightness(0.4); /* Difuminado + oscurecido */
+    z-index: 0; /* Asegura que esté detrás del contenido */
+}
+
+.producto-card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 6px 16px rgba(255, 215, 0, 0.3);
+}
+
+/* Estilo para la imagen del producto - Ocupa la parte superior completa */
+.producto-card img {
+    width: 100%; /* La imagen ocupa todo el ancho de la tarjeta */
+    height: 200px; /* Altura fija para la imagen, como la tenías */
+    object-fit: cover; /* Recorta la imagen para cubrir el área sin distorsión */
+    object-position: center; /* Centra la imagen dentro de su contenedor */
+    border-radius: 8px 8px 0 0; /* Bordes redondeados solo en la parte superior */
+    position: relative; /* Para z-index */
+    z-index: 1; /* Para estar sobre el pseudo-elemento ::before */
+    margin-bottom: 0; /* Elimina cualquier margen inferior predeterminado de la imagen */
+}
+
+/* Aseguramos que todos los elementos directos dentro de .producto-card estén por encima del fondo pseudo-elemento */
+.producto-card > * {
+    position: relative;
+    z-index: 1;
+}
+
+/* Estilos para el texto (h3, p) que va justo debajo de la imagen */
+/* Mantendrán su padding original y el color */
+.producto-card h3,
+.producto-card p {
+    padding: 0.8em 1em; /* Mantiene el padding original como lo tenías */
+    color: #fff;
+    font-family: 'Cinzel', serif;
+    font-size: 1.1rem;
+    text-align: center;
+    margin: 0; /* Reseteamos los márgenes por defecto para controlar el espaciado */
+}
+/* Asegura que el párrafo tenga el color correcto */
+.producto-card p {
+    color: #fff; /* Asegura el color blanco para el precio */
+    margin-top: 0; /* Elimina margen superior extra */
+    margin-bottom: 0.8em; /* Espacio debajo del precio */
+}
+
+/* El `div.producto-card-buttons` ya existe en tu HTML y JavaScript */
+/* No cambiaremos su display, solo ajustaremos su margen superior y un borde de división */
+.producto-card-buttons {
+    display: flex; /* Mantiene los botones en fila */
+    gap: 10px; /* Espacio entre los botones */
+    justify-content: center; /* Centra los botones */
+    
+    /* Añadimos estilos para la "división" y para empujarlo al final */
+    margin-top: auto; /* Esto es CLAVE en un flex-column para empujar el elemento al final */
+    padding-top: 1em; /* Espacio superior para la división */
+    border-top: 1px solid rgba(255, 215, 0, 0.2); /* Línea de división sutil */
+    background-color: rgba(0, 0, 0, 0.6); /* Fondo semi-transparente para la sección de botones */
+    padding-bottom: 1em; /* Padding inferior para el área de botones */
+    padding-left: 1em; /* Padding lateral */
+    padding-right: 1em; /* Padding lateral */
+}
+
+.producto-card-buttons button {
+    background-color: #1e1e1e;
+    color: white;
+    border: none; /* Quitamos el borde para mantener el diseño original de tus botones */
+    border-radius: 8px;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+    transition: background-color 0.2s ease-in-out;
+    flex-grow: 1; /* Permite que los botones ocupen el espacio disponible equitativamente */
+    max-width: 120px; /* Ancho máximo para cada botón */
+}
+
+.producto-card-buttons button:hover {
+    background-color: #333;
+}
+
+.producto-card-buttons button:last-child::before {
+    content: "🛒";
+    margin-right: 6px;
+}
+
+
+/* Resto de tu CSS (modal, carrito-flotante, etc.) se mantiene sin cambios */
+/* Tu media query para 480px, etc. también se mantiene */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    overflow-y: auto;
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 1em;
+}
+
+.modal-content {
+    background-color: #1a1a1a;
+    border: 2px solid #FFD700;
+    margin: 3em auto;
+    padding: 2em;
+    width: 100%;
+    max-width: 600px;
+    border-radius: 10px;
+    color: #fff;
+    position: relative;
+}
+
+.modal-content img {
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: 1em;
+}
+
+.cerrar {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 1.5em;
+    cursor: pointer;
+    color: #FFD700;
+}
+
+.badge {
+    background-color: #FFD700;
+    color: #000;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    display: inline-block;
+    margin-bottom: 1em;
+}
+
+.modal-content h2 {
+    font-family: 'Cinzel', serif;
+    color: #FFD700;
+    font-size: 1.4rem;
+}
+
+.modal-content ul {
+    list-style: square;
+    padding-left: 1.2em;
+    color: #ccc;
+    margin-bottom: 1em;
+}
+
+.modal-content p {
+    color: #ccc;
+    margin: 0.5em 0;
+}
+
+@media (max-width: 480px) {
+    .menu-header {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.5em;
+    }
+
+    .logo-text {
+        font-size: 1.2rem;
+    }
+
+    .producto-card {
+        width: 100%;
+        max-width: 90vw;
+    }
+
+    .producto-card h3 {
+        font-size: 1rem;
+    }
+
+    .modal-content {
+        padding: 1.2em;
+    }
+
+    .modal-content h2 {
+        font-size: 1.2rem;
+    }
+
+    .badge {
+        font-size: 0.75rem;
+    }
+}
+
+#carrito-flotante {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 999;
+}
+
+#carrito-flotante button {
+    background-color: #ff6600;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 50px;
+    cursor: pointer;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0; top: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.5);
+}
+
+.modal-content {
+    background: rgb(0, 0, 0);
+    margin: 10% auto;
+    padding: 20px;
+    max-width: 400px;
+    border-radius: 10px;
+}
+
+.cerrar {
+    float: right;
+    cursor: pointer;
+    font-size: 20px;
+}
