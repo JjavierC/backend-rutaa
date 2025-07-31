@@ -15,7 +15,7 @@ const formMessage = document.getElementById('formMessage');
 const itemsList = document.getElementById('itemsList');
 const listMessage = document.getElementById('listMessage');
 
-const API_BASE_URL = '/.netlify/functions/api.'; 
+const API_BASE_URL = '/.netlify/functions/api'; 
 
 let isEditing = false;
 
