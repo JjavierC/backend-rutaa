@@ -6,8 +6,8 @@ const nombreInput = document.getElementById('nombre');
 const precioInput = document.getElementById('precio');
 const descripcionInput = document.getElementById('descripcion');
 const imagenInput = document.getElementById('imagen');
-const tipoInput = document.getElementById('tipo');
-const categoriaInput = document.getElementById('categoria');
+const tipoInput = document.getElementById('tipo'); // Ahora es un select
+const categoriaInput = document.getElementById('categoria'); // Ahora es un select
 const destacadoInput = document.getElementById('destacado');
 const submitBtn = document.getElementById('submitBtn');
 const cancelEditBtn = document.getElementById('cancelEditBtn');
@@ -15,10 +15,27 @@ const formMessage = document.getElementById('formMessage');
 const itemsList = document.getElementById('itemsList');
 const listMessage = document.getElementById('listMessage');
 
-const API_BASE_URL = '/.netlify/functions/api'; 
+// Base URL para nuestras Netlify Functions
+const API_BASE_URL = '/.netlify/functions/api';
 
 let isEditing = false;
 
+// Mapeo de Tipos a Categorías permitidas (AJUSTA ESTO A TUS NECESIDADES REALES)
+const categoryMap = {
+    'plato': ['entradas', 'grill-66', 'ruta-del-mar', 'hamburguesas', 'parrilladas', 'menu-infantil', 'pastas', 'sandwiches', 'lasagna', 'arroces', 'ensaladas', 'pizzas-tradicionales', 'pizzas-gourmet'],
+    'bebida': ['Jugos', 'Limonadas', 'Gaseosas', 'cocteles', 'sodas-micheladas', 'sodas-organicas'],
+    'licor': ['cervezas', 'micheladas', 'licores', 'tragos', 'vino-tinto', 'vino-rosado', 'vino-blanco'],
+    'postre': ['postres', 'malteadas', 'cafe', 'infusiones'],
+    'combo': ['combos'], // Si tienes subcategorías para combos, añádelas aquí
+};
+
+// Función para capitalizar texto y reemplazar guiones
+function capitalize(text) {
+    if (!text) return '';
+    return text.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+}
+
+// Función para mostrar mensajes
 function showMessage(element, message, type) {
     element.textContent = message;
     element.className = `message ${type}`;
@@ -35,7 +52,30 @@ function clearForm() {
     submitBtn.textContent = 'Agregar Ítem';
     cancelEditBtn.style.display = 'none';
     isEditing = false;
+    populateCategorySelect(''); // Limpiar las categorías al resetear el formulario
 }
+
+// Función para poblar el select de categorías basado en el tipo seleccionado
+function populateCategorySelect(selectedType, selectedCategory = '') {
+    categoriaInput.innerHTML = '<option value="">Selecciona una categoría</option>'; // Opción por defecto
+    if (selectedType && categoryMap[selectedType]) {
+        categoryMap[selectedType].forEach(category => {
+            const option = document.createElement('option');
+            option.value = category;
+            option.textContent = capitalize(category);
+            if (category === selectedCategory) {
+                option.selected = true;
+            }
+            categoriaInput.appendChild(option);
+        });
+    }
+}
+
+// Event Listener para el cambio del select de Tipo
+tipoInput.addEventListener('change', () => {
+    populateCategorySelect(tipoInput.value);
+});
+
 
 // Función para cargar los ítems del menú
 async function loadItems() {
@@ -63,7 +103,7 @@ async function loadItems() {
                             <h3>${item.nombre}</h3>
                             <p class="price">$${item.precio.toLocaleString('es-CO')}</p>
                             <p>${item.descripcion || 'Sin descripción.'}</p>
-                            <p class="category-type">Tipo: ${item.tipo || 'N/A'} | Categoría: ${item.categoria || 'N/A'}</p>
+                            <p class="category-type">Tipo: ${capitalize(item.tipo || 'N/A')} | Categoría: ${capitalize(item.categoria || 'N/A')}</p>
                             ${item.destacado ? '<span class="badge">⭐ Destacado</span>' : ''}
                             <div class="item-card-actions">
                                 <button class="edit-btn" data-id="${item._id}">Editar</button>
@@ -94,6 +134,12 @@ async function loadItems() {
 // Función para enviar el formulario (Agregar/Editar)
 itemForm.addEventListener('submit', async (e) => {
     e.preventDefault();
+
+    // Validar que Tipo y Categoría no sean la opción por defecto vacía
+    if (!tipoInput.value || !categoriaInput.value) {
+        showMessage(formMessage, 'Por favor, selecciona un Tipo y una Categoría válidos.', 'error');
+        return;
+    }
 
     const itemData = {
         nombre: nombreInput.value,
@@ -159,8 +205,11 @@ async function editItem(id) {
             precioInput.value = item.precio;
             descripcionInput.value = item.descripcion;
             imagenInput.value = item.imagen;
+            
+            // Establecer el tipo y luego poblar la categoría antes de establecerla
             tipoInput.value = item.tipo;
-            categoriaInput.value = item.categoria;
+            populateCategorySelect(item.tipo, item.categoria); // Pasa la categoría para que se seleccione
+
             destacadoInput.checked = item.destacado;
 
             submitBtn.textContent = 'Actualizar Ítem';
@@ -194,7 +243,8 @@ async function deleteItem(id) {
         } else {
             showMessage(listMessage, `Error al eliminar: ${result.message}`, 'error');
         }
-    } catch (error) {
+    }
+    catch (error) {
         console.error('Error al eliminar ítem:', error);
         showMessage(listMessage, 'Error de conexión al eliminar el ítem.', 'error');
     }

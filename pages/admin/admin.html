@@ -4,7 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Ruta 66 - Gestión de Menú</title>
-  <link rel="stylesheet" href="../../css/styles.css"> <link rel="stylesheet" href="../../css/admin.css"> <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Open+Sans&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/styles.css">
+  <link rel="stylesheet" href="../../css/admin.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Open+Sans&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -31,11 +33,20 @@
         <label for="imagen">URL de Imagen:</label>
         <input type="url" id="imagen">
 
-        <label for="tipo">Tipo (ej. plato, licor, bebida, postre, combo):</label>
-        <input type="text" id="tipo" required>
+        <label for="tipo">Tipo:</label>
+        <select id="tipo" required>
+          <option value="">Selecciona un tipo</option>
+          <option value="plato">Plato</option>
+          <option value="licor">Licor</option>
+          <option value="bebida">Bebida</option>
+          <option value="postre">Postre / Café</option>
+          <option value="combo">Combo</option>
+        </select>
 
-        <label for="categoria">Categoría (ej. entradas, cervezas, hamburguesas, malteadas):</label>
-        <input type="text" id="categoria" required>
+        <label for="categoria">Categoría:</label>
+        <select id="categoria" required>
+          <option value="">Selecciona una categoría</option>
+          </select>
 
         <label for="destacado">¿Es Destacado?</label>
         <input type="checkbox" id="destacado">

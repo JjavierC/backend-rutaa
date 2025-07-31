@@ -106,7 +106,7 @@ async function handler(event, context) {
                     response = { statusCode: 400, body: JSON.stringify({ message: 'Ruta DELETE no válida o ID faltante' }) };
                 }
                 break;
-
+    
             default:
                 response = { statusCode: 405, body: JSON.stringify({ message: 'Método no permitido' }) };
         }
