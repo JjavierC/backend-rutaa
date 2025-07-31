@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Ruta 66 - Gestión de Menú</title>
+  <link rel="stylesheet" href="../../css/styles.css"> <link rel="stylesheet" href="../../css/admin.css"> <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Open+Sans&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <header class="menu-header">
+    <a href="../menu/menut.html" class="back-btn">← Ir al Menú Principal</a>
+    <span class="logo-text">Administración de Menú</span>
+  </header>
+
+  <main class="admin-container">
+    <h1>Gestionar Ítems del Menú</h1>
+
+    <section class="admin-form-section">
+      <h2>Agregar/Editar Ítem</h2>
+      <form id="itemForm" class="item-form">
+        <input type="hidden" id="itemId"> <label for="nombre">Nombre del Ítem:</label>
+        <input type="text" id="nombre" required>
+
+        <label for="precio">Precio:</label>
+        <input type="number" id="precio" step="100" required>
+
+        <label for="descripcion">Descripción:</label>
+        <textarea id="descripcion"></textarea>
+
+        <label for="imagen">URL de Imagen:</label>
+        <input type="url" id="imagen">
+
+        <label for="tipo">Tipo (ej. plato, licor, bebida, postre, combo):</label>
+        <input type="text" id="tipo" required>
+
+        <label for="categoria">Categoría (ej. entradas, cervezas, hamburguesas, malteadas):</label>
+        <input type="text" id="categoria" required>
+
+        <label for="destacado">¿Es Destacado?</label>
+        <input type="checkbox" id="destacado">
+
+        <button type="submit" id="submitBtn">Agregar Ítem</button>
+        <button type="button" id="cancelEditBtn" style="display:none;">Cancelar Edición</button>
+      </form>
+      <p id="formMessage" class="message"></p>
+    </section>
+
+    <section class="admin-list-section">
+      <h2>Lista de Ítems</h2>
+      <div id="itemsList" class="items-grid">
+        </div>
+      <p id="listMessage" class="message"></p>
+    </section>
+  </main>
+
+  <script src="../../js/admin.js"></script>
+</body>
+</html>
