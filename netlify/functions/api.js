@@ -8,7 +8,7 @@ const itemMenuSchema = new mongoose.Schema({
     precio: { type: Number, required: true },
     imagen: String,
     categoria: { type: String, required: true },
-    tipo: { type: String, required: true },
+    tipo: { type: String, required: true }, // Asegurado como required
     destacado: { type: Boolean, default: false }
 });
 
@@ -24,8 +24,8 @@ async function connectToDatabase() {
     console.log('Connecting to new DB instance...');
     try {
         const db = await mongoose.connect(process.env.MONGODB_URI, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
+            useNewUrlParser: true, // Advertencia: depreciado en versiones recientes de Mongoose
+            useUnifiedTopology: true, // Advertencia: depreciado en versiones recientes de Mongoose
             bufferCommands: false,
             serverSelectionTimeoutMS: 5000,
         });
@@ -34,13 +34,15 @@ async function connectToDatabase() {
         return db;
     } catch (dbError) {
         console.error('Failed to connect to DB:', dbError);
-        throw new Error(`DB Connection Error: ${dbError.message}`);
+        throw new Error(`DB Connection Error: ${dbError.message}`); // Lanza el error para que sea capturado por el bloque catch de la función handler
     }
 }
 
 // Envuelve la lógica del handler en una función que será exportada
 async function handler(event, context) {
+    // Esto es crucial para reusar la conexión de la base de datos en serverless
     context.callbackWaitsForEmptyEventLoop = false;
+
     let statusCode = 200;
     let body = {};
 
@@ -48,12 +50,14 @@ async function handler(event, context) {
         await connectToDatabase();
         console.log('Handler started. Connected to DB.');
 
-        const { httpMethod, path, body: requestBody } = event; // Renombrar 'body' del evento a 'requestBody' para evitar conflicto
+        // Renombrar 'body' del evento a 'requestBody' para evitar conflicto de nombres con la variable 'body' de la respuesta
+        const { httpMethod, path, body: requestBody } = event;
         const pathSegments = path.split('/').filter(segment => segment && segment !== '.netlify' && segment !== 'functions');
         const resource = pathSegments[1]; // 'items'
         const id = pathSegments[2];      // The ID, if present
 
         console.log(`HTTP Method: ${httpMethod}, Resource: ${resource}, ID: ${id}`);
+        console.log('Query String Parameters:', event.queryStringParameters);
 
         if (resource === 'items') {
             switch (httpMethod) {
@@ -71,33 +75,36 @@ async function handler(event, context) {
                         let query = {};
                         if (tipo) query.tipo = tipo;
                         if (categoria) query.categoria = categoria;
-                        console.log('GET Query:', query);
+                        console.log('GET Query applied to MongoDB:', query);
 
                         const items = await ItemMenu.find(query);
                         body = items; // Asignar directamente el array de ítems
-                        console.log('Items found:', items.length);
+                        console.log('Items found by Mongoose query:', items.length);
+                        console.log('Sample item from Mongoose query (first 2):', items.slice(0, 2)); // Para ver una muestra de los datos
                     }
                     break;
 
                 case 'POST':
                     const data = JSON.parse(requestBody); // Usar requestBody
-                    console.log('POST Data:', data);
+                    console.log('POST Data received:', data);
                     const nuevoItem = new ItemMenu(data);
                     await nuevoItem.save();
                     statusCode = 201;
                     body = nuevoItem;
+                    console.log('New item created:', nuevoItem._id);
                     break;
 
                 case 'PUT':
                     if (id) {
                         const data = JSON.parse(requestBody); // Usar requestBody
-                        console.log('PUT Data:', data);
+                        console.log('PUT Data received for ID:', id, 'Data:', data);
                         const updatedItem = await ItemMenu.findByIdAndUpdate(id, data, { new: true, runValidators: true });
                         if (!updatedItem) {
                             statusCode = 404;
                             body = { message: 'Ítem no encontrado para actualizar' };
                         } else {
                             body = updatedItem;
+                            console.log('Item updated:', updatedItem._id);
                         }
                     } else {
                         statusCode = 400;
@@ -113,6 +120,7 @@ async function handler(event, context) {
                             body = { message: 'Ítem no encontrado para eliminar' };
                         } else {
                             body = { message: 'Ítem eliminado exitosamente' };
+                            console.log('Item deleted:', id);
                         }
                     } else {
                         statusCode = 400;
@@ -130,7 +138,7 @@ async function handler(event, context) {
         }
 
     } catch (error) {
-        console.error('Error en Netlify Function (catch block):', error);
+        console.error('Error in Netlify Function (caught in try-catch block):', error);
         statusCode = 500;
         body = { message: 'Error interno del servidor', error: error.message };
     } finally {
@@ -142,7 +150,8 @@ async function handler(event, context) {
                 'Content-Type': 'application/json',
             },
         };
-        console.log('Final Response to Netlify:', finalResponse);
+        console.log('Final Response Object to Netlify:', finalResponse); // Log del objeto de respuesta final
+        console.log('Final Response Body (JSON String):', finalResponse.body); // Log del cuerpo JSON como string
         return finalResponse;
     }
 }
