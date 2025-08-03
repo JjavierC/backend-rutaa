@@ -151,5 +151,5 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Iniciar la carga de los productos de tipo 'licor'
-  loadAndDisplayItems('licor');
+  loadAndDisplayItems('Licor');
 });
