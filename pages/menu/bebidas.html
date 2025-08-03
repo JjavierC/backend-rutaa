@@ -3,26 +3,46 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bebidas - Menú - Ruta 66</title>
-  <link rel="stylesheet" href="../../css/styles.css">
-  <link rel="stylesheet" href="../../css/platos.css">
+  <title>Bebidas | Ruta 66</title>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Open+Sans&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/platos.css">
+  <link rel="stylesheet" href="../../css/carrito.css">
 </head>
+<link rel="shortcut icon" href="../../imgs/LogoOriginal.jpeg" type="image/x-icon">
 <body>
 
   <header class="menu-header">
-    <a href="menut.html" class="back-btn">← Ir al Menú Principal</a>
+    <a href="../menu/menut.html" class="back-btn">←</a>
     <span class="logo-text">Bebidas</span>
   </header>
 
-  <main class="menu-container">
-    <div id="filtros-container">
-      </div>
-    <div id="productos-container" class="productos-grid">
-      </div>
-    <div id="modales-dinamicos-container"></div>
-  </main>
+  <div class="contenedor-platos">
+    <button id="toggle-categorias"></button>
 
-  <script src="../../js/bebidas.js"></script>
-</body>
+    <aside class="filtro-categorias">
+      <h3>Categorías</h3>
+      <ul>  
+        <li class="activo" onclick="filtrar('todos')">Todos</li>
+      </ul>
+    </aside>
+
+    <main class="contenedor-productos">
+      <h2 class="titulo-categoria" id="categoria-titulo">Todos</h2>
+
+      <div class="grid-productos" id="productos-container">
+        </div>
+    </main>
+  </div>
+
+  <div id="modales-dinamicos-container"></div>
+
+  <div id="componente-carrito"></div>
+  <div id="botones-flotantes">
+    <button id="btn-categorias">Categorías</button>
+    <button id="btn-atras">Atrás</button>
+  </div>
+
+  <script src="../../js/carrito.js"></script>
+  <script src="../../js/botonesFlotantes.js"></script>
+  <script src="../../js/bebidas.js"></script> </body>
 </html>

@@ -30,8 +30,11 @@
         <label for="descripcion">Descripción:</label>
         <textarea id="descripcion"></textarea>
 
-        <label for="imagen">URL de Imagen:</label>
-        <input type="url" id="imagen">
+       <label for="imagenFile">Subir Imagen:</label>
+       <input type="file" id="imagenFile" accept="image/*">
+       <div id="imagenPreviewContainer" style="margin-bottom: 15px;">
+       <img id="imagenPreview" src="" alt="Vista previa de la imagen" style="max-width: 150px; display: none; border-radius: 8px;">
+      </div>
 
         <label for="tipo">Tipo:</label>
         <select id="tipo" required>

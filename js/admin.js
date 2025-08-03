@@ -5,9 +5,10 @@ const itemIdInput = document.getElementById('itemId');
 const nombreInput = document.getElementById('nombre');
 const precioInput = document.getElementById('precio');
 const descripcionInput = document.getElementById('descripcion');
-const imagenInput = document.getElementById('imagen');
-const tipoInput = document.getElementById('tipo'); // Ahora es un select
-const categoriaInput = document.getElementById('categoria'); // Ahora es un select
+const imagenFileInput = document.getElementById('imagenFile'); // <--- NUEVA LÍNEA: Campo de archivo
+const imagenPreview = document.getElementById('imagenPreview'); // <--- NUEVA LÍNEA: Vista previa
+const tipoInput = document.getElementById('tipo');
+const categoriaInput = document.getElementById('categoria');
 const destacadoInput = document.getElementById('destacado');
 const submitBtn = document.getElementById('submitBtn');
 const cancelEditBtn = document.getElementById('cancelEditBtn');
@@ -19,6 +20,9 @@ const listMessage = document.getElementById('listMessage');
 const API_BASE_URL = '/.netlify/functions/api';
 
 let isEditing = false;
+let currentImageUrl = ''; // <--- NUEVA LÍNEA: Variable para guardar la URL de la imagen actual
+const CLOUDINARY_CLOUD_NAME = 'dcvx06m74'; // <--- REEMPLAZA CON TU CLOUD NAME
+const CLOUDINARY_UPLOAD_PRESET = 'ruta66_preset'; // <--- REEMPLAZA CON TU UPLOAD PRESET
 
 // Mapeo de Tipos a Categorías permitidas (AJUSTA ESTO A TUS NECESIDADES REALES)
 const categoryMap = {
@@ -26,7 +30,7 @@ const categoryMap = {
     'bebida': ['Jugos', 'Limonadas', 'Gaseosas', 'cocteles', 'sodas-micheladas', 'sodas-organicas'],
     'licor': ['cervezas', 'micheladas', 'licores', 'tragos', 'vino-tinto', 'vino-rosado', 'vino-blanco'],
     'postre': ['postres', 'malteadas', 'cafe', 'infusiones'],
-    'combo': ['combos'], // Si tienes subcategorías para combos, añádelas aquí
+    'combo': ['combos'],
 };
 
 // Función para capitalizar texto y reemplazar guiones
@@ -52,12 +56,54 @@ function clearForm() {
     submitBtn.textContent = 'Agregar Ítem';
     cancelEditBtn.style.display = 'none';
     isEditing = false;
-    populateCategorySelect(''); // Limpiar las categorías al resetear el formulario
+    currentImageUrl = ''; // <--- NUEVA LÍNEA: Limpia la URL de la imagen
+    imagenPreview.style.display = 'none'; // <--- NUEVA LÍNEA: Oculta la vista previa
+    populateCategorySelect('');
 }
+
+// <--- NUEVA FUNCIÓN: Lógica para subir la imagen a Cloudinary
+async function uploadImage(file) {
+    if (!file) return null;
+
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
+
+    try {
+        const response = await fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`, {
+            method: 'POST',
+            body: formData
+        });
+        const data = await response.json();
+        return data.secure_url; // Devuelve la URL segura de la imagen
+    } catch (error) {
+        console.error('Error al subir la imagen a Cloudinary:', error);
+        showMessage(formMessage, 'Error al subir la imagen.', 'error');
+        return null;
+    }
+}
+// Fin de la nueva función
+
+// Event Listener para mostrar la vista previa de la imagen
+imagenFileInput.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            imagenPreview.src = e.target.result;
+            imagenPreview.style.display = 'block';
+        };
+        reader.readAsDataURL(file);
+    } else {
+        imagenPreview.src = '';
+        imagenPreview.style.display = 'none';
+    }
+});
+
 
 // Función para poblar el select de categorías basado en el tipo seleccionado
 function populateCategorySelect(selectedType, selectedCategory = '') {
-    categoriaInput.innerHTML = '<option value="">Selecciona una categoría</option>'; // Opción por defecto
+    categoriaInput.innerHTML = '<option value="">Selecciona una categoría</option>';
     if (selectedType && categoryMap[selectedType]) {
         categoryMap[selectedType].forEach(category => {
             const option = document.createElement('option');
@@ -82,7 +128,7 @@ async function loadItems() {
     listMessage.textContent = 'Cargando ítems...';
     listMessage.className = 'message';
     listMessage.style.display = 'block';
-    itemsList.innerHTML = ''; // Limpiar lista existente
+    itemsList.innerHTML = '';
 
     try {
         const response = await fetch(`${API_BASE_URL}/items`);
@@ -113,8 +159,6 @@ async function loadItems() {
                     `;
                     itemsList.appendChild(itemCard);
                 });
-
-                // Añadir event listeners a los botones de editar y eliminar
                 document.querySelectorAll('.edit-btn').forEach(button => {
                     button.addEventListener('click', (e) => editItem(e.target.dataset.id));
                 });
@@ -135,17 +179,31 @@ async function loadItems() {
 itemForm.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    // Validar que Tipo y Categoría no sean la opción por defecto vacía
     if (!tipoInput.value || !categoriaInput.value) {
         showMessage(formMessage, 'Por favor, selecciona un Tipo y una Categoría válidos.', 'error');
         return;
     }
 
+    // <--- NUEVA LÓGICA DE SUBIDA DE IMAGEN
+    const file = imagenFileInput.files[0];
+    let imageUrlToSave = currentImageUrl; // Mantener la imagen actual si no se sube una nueva
+
+    if (file) {
+        showMessage(formMessage, 'Subiendo imagen...', 'info');
+        submitBtn.disabled = true; // Deshabilitar el botón mientras se sube
+        imageUrlToSave = await uploadImage(file);
+        submitBtn.disabled = false;
+        if (!imageUrlToSave) {
+            return; // Detener si la subida de imagen falla
+        }
+    }
+    // Fin de la nueva lógica
+
     const itemData = {
         nombre: nombreInput.value,
         precio: parseFloat(precioInput.value),
         descripcion: descripcionInput.value,
-        imagen: imagenInput.value,
+        imagen: imageUrlToSave, // Usar la URL de la imagen subida o la existente
         tipo: tipoInput.value,
         categoria: categoriaInput.value,
         destacado: destacadoInput.checked
@@ -204,18 +262,24 @@ async function editItem(id) {
             nombreInput.value = item.nombre;
             precioInput.value = item.precio;
             descripcionInput.value = item.descripcion;
-            imagenInput.value = item.imagen;
             
-            // Establecer el tipo y luego poblar la categoría antes de establecerla
+            currentImageUrl = item.imagen; // <--- NUEVA LÍNEA: Guarda la URL de la imagen actual
+            if (currentImageUrl) { // <--- NUEVA LÍNEA
+                imagenPreview.src = currentImageUrl; // <--- NUEVA LÍNEA: Muestra la vista previa
+                imagenPreview.style.display = 'block'; // <--- NUEVA LÍNEA
+            } else { // <--- NUEVA LÍNEA
+                imagenPreview.style.display = 'none'; // <--- NUEVA LÍNEA
+            } // <--- NUEVA LÍNEA
+
             tipoInput.value = item.tipo;
-            populateCategorySelect(item.tipo, item.categoria); // Pasa la categoría para que se seleccione
+            populateCategorySelect(item.tipo, item.categoria);
 
             destacadoInput.checked = item.destacado;
 
             submitBtn.textContent = 'Actualizar Ítem';
             cancelEditBtn.style.display = 'inline-block';
             isEditing = true;
-            window.scrollTo({ top: 0, behavior: 'smooth' }); // Subir al formulario
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         } else {
             showMessage(formMessage, `No se encontró el ítem para editar: ${item.message}`, 'error');
         }
@@ -243,8 +307,7 @@ async function deleteItem(id) {
         } else {
             showMessage(listMessage, `Error al eliminar: ${result.message}`, 'error');
         }
-    }
-    catch (error) {
+    } catch (error) {
         console.error('Error al eliminar ítem:', error);
         showMessage(listMessage, 'Error de conexión al eliminar el ítem.', 'error');
     }
