@@ -21,7 +21,7 @@ const API_BASE_URL = '/.netlify/functions/api';
 
 let isEditing = false;
 let currentImageUrl = ''; // <--- NUEVA LÍNEA: Variable para guardar la URL de la imagen actual
-const CLOUDINARY_CLOUD_NAME = 'dcvx06m74'; // <--- REEMPLAZA CON TU CLOUD NAME
+const CLOUDINARY_CLOUD_NAME = 'dfihjzwho'; // <--- REEMPLAZA CON TU CLOUD NAME
 const CLOUDINARY_UPLOAD_PRESET = 'ruta66_preset'; // <--- REEMPLAZA CON TU UPLOAD PRESET
 
 // Mapeo de Tipos a Categorías permitidas (AJUSTA ESTO A TUS NECESIDADES REALES)
