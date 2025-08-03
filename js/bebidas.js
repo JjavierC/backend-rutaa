@@ -150,6 +150,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Iniciar la carga de los productos de tipo 'combo'
-  loadAndDisplayItems('combo');
+  // Iniciar la carga de los productos de tipo 'bebida'
+  loadAndDisplayItems('bebida');
 });

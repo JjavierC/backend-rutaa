@@ -1,58 +1,28 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Combos | Ruta 66</title>
-  <link rel="stylesheet" href="../../css/styles.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Open+Sans&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../../css/combos.css" />
-  <link rel="stylesheet" href="../../css/carrito.css">                                                                    
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Combos - Menú - Ruta 66</title>
+  <link rel="stylesheet" href="../../css/styles.css">
+  <link rel="stylesheet" href="../../css/platos.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Open+Sans&display=swap" rel="stylesheet">
 </head>
 <body>
 
   <header class="menu-header">
-    <a href="../../index.html" class="back-btn">←</a>
-    <span class="logo-text">RestoBar – Ruta 66</span>
+    <a href="menut.html" class="back-btn">← Ir al Menú Principal</a>
+    <span class="logo-text">Combos</span>
   </header>
 
-  <main class="producto-grid">
-    <div class="producto-card">
-      <img src="../../imgs/combos.jpg" alt="Combo Hamburguesa" />
-      <h3>Hamburguesa + Coca Cola</h3>
-      <p>$32.500</p>
-      <div class="producto-card-buttons">
-        <button onclick="abrirModal('combo1')">Ver</button>
-        <button onclick="agregarAlCarrito('Hamburguesa Americana + Coca Cola 300 ml', 32500)">Añadir</button>
+  <main class="menu-container">
+    <div id="filtros-container">
       </div>
-    </div>
+    <div id="productos-container" class="productos-grid">
+      </div>
+    <div id="modales-dinamicos-container"></div>
   </main>
 
-  <!-- MODAL -->
-  <div id="combo1" class="modal">
-    <div class="modal-content">
-      <span class="cerrar" onclick="cerrarModal('combo1')">×</span>
-      <img src="../../imgs/combos.jpg" alt="Combo grande" />
-      <span class="badge">⭐ Recomendado</span>
-      <h2>Hamburguesa Americana + Coca Cola 300 ml</h2>
-      <p><strong>Precio:</strong> $32.500</p>
-      <p>Combo clásico al mejor estilo Ruta 66:</p>
-      <ul>
-        <li>Hamburguesa doble carne, queso cheddar, lechuga y tomate</li>
-        <li>Papas fritas crujientes</li>
-        <li>Bebida: Coca Cola 300 ml</li>
-      </ul>
-      <p><strong>Opciones de Coca Cola:</strong></p>
-      <ul>
-        <li>Sabor original</li>
-        <li>Sin azúcar</li>
-      </ul>
-    </div>
-  </div>
-
   <script src="../../js/combos.js"></script>
-  <div id="componente-carrito"></div>
-  <script src="../../js/carrito.js"></script>
 </body>
 </html>
