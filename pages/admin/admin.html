@@ -21,7 +21,9 @@
     <section class="admin-form-section">
       <h2>Agregar/Editar Ítem</h2>
       <form id="itemForm" class="item-form">
-        <input type="hidden" id="itemId"> <label for="nombre">Nombre del Ítem:</label>
+        <input type="hidden" id="itemId">
+
+        <label for="nombre">Nombre del Ítem:</label>
         <input type="text" id="nombre" required>
 
         <label for="precio">Precio:</label>
@@ -30,11 +32,11 @@
         <label for="descripcion">Descripción:</label>
         <textarea id="descripcion"></textarea>
 
-       <label for="imagenFile">Subir Imagen:</label>
-       <input type="file" id="imagenFile" accept="image/*">
-       <div id="imagenPreviewContainer" style="margin-bottom: 15px;">
-       <img id="imagenPreview" src="" alt="Vista previa de la imagen" style="max-width: 150px; display: none; border-radius: 8px;">
-      </div>
+        <label for="imagenFile">Subir Imagen:</label>
+        <input type="file" id="imagenFile" accept="image/*">
+        <div id="imagenPreviewContainer" style="margin-bottom: 15px;">
+          <img id="imagenPreview" src="" alt="Vista previa de la imagen" style="max-width: 150px; display: none; border-radius: 8px;">
+        </div>
 
         <label for="tipo">Tipo:</label>
         <select id="tipo" required>
@@ -49,7 +51,7 @@
         <label for="categoria">Categoría:</label>
         <select id="categoria" required>
           <option value="">Selecciona una categoría</option>
-          </select>
+        </select>
 
         <label for="destacado">¿Es Destacado?</label>
         <input type="checkbox" id="destacado">
@@ -62,11 +64,24 @@
 
     <section class="admin-list-section">
       <h2>Lista de Ítems</h2>
+
+      <div class="search-filter-container">
+        <input type="text" id="searchInput" placeholder="Buscar por nombre...">
+        <select id="filterCategorySelect">
+          <option value="todos">Todas las Categorías</option>
+          </select>
+      </div>
+
       <div id="itemsList" class="items-grid">
         </div>
       <p id="listMessage" class="message"></p>
     </section>
   </main>
+
+  <footer class="admin-footer">
+    <p>Página hecha por CL Soluciones</p>
+    <p>Atención al cliente: <a href="tel:+3249149825">3249149825</a></p>
+  </footer>
 
   <script src="../../js/admin.js"></script>
 </body>

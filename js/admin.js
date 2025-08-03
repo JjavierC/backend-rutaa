@@ -5,8 +5,8 @@ const itemIdInput = document.getElementById('itemId');
 const nombreInput = document.getElementById('nombre');
 const precioInput = document.getElementById('precio');
 const descripcionInput = document.getElementById('descripcion');
-const imagenFileInput = document.getElementById('imagenFile'); // <--- NUEVA LÍNEA: Campo de archivo
-const imagenPreview = document.getElementById('imagenPreview'); // <--- NUEVA LÍNEA: Vista previa
+const imagenFileInput = document.getElementById('imagenFile');
+const imagenPreview = document.getElementById('imagenPreview');
 const tipoInput = document.getElementById('tipo');
 const categoriaInput = document.getElementById('categoria');
 const destacadoInput = document.getElementById('destacado');
@@ -16,15 +16,19 @@ const formMessage = document.getElementById('formMessage');
 const itemsList = document.getElementById('itemsList');
 const listMessage = document.getElementById('listMessage');
 
+// NUEVOS elementos de búsqueda y filtro
+const searchInput = document.getElementById('searchInput');
+const filterCategorySelect = document.getElementById('filterCategorySelect');
+
 // Base URL para nuestras Netlify Functions
 const API_BASE_URL = '/.netlify/functions/api';
 
 let isEditing = false;
-let currentImageUrl = ''; // <--- NUEVA LÍNEA: Variable para guardar la URL de la imagen actual
-const CLOUDINARY_CLOUD_NAME = 'dfihjzwho'; // <--- REEMPLAZA CON TU CLOUD NAME
-const CLOUDINARY_UPLOAD_PRESET = 'ruta66_preset'; // <--- REEMPLAZA CON TU UPLOAD PRESET
+let allItems = []; // Para almacenar todos los ítems y realizar búsquedas en el cliente
+let currentImageUrl = '';
+const CLOUDINARY_CLOUD_NAME = 'dfihjzwho';
+const CLOUDINARY_UPLOAD_PRESET = 'ruta66_preset';
 
-// Mapeo de Tipos a Categorías permitidas (AJUSTA ESTO A TUS NECESIDADES REALES)
 const categoryMap = {
     'plato': ['entradas', 'grill-66', 'ruta-del-mar', 'hamburguesas', 'parrilladas', 'menu-infantil', 'pastas', 'sandwiches', 'lasagna', 'arroces', 'ensaladas', 'pizzas-tradicionales', 'pizzas-gourmet'],
     'bebida': ['Jugos', 'Limonadas', 'Gaseosas', 'cocteles', 'sodas-micheladas', 'sodas-organicas'],
@@ -33,13 +37,11 @@ const categoryMap = {
     'combo': ['combos'],
 };
 
-// Función para capitalizar texto y reemplazar guiones
 function capitalize(text) {
     if (!text) return '';
     return text.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
 }
 
-// Función para mostrar mensajes
 function showMessage(element, message, type) {
     element.textContent = message;
     element.className = `message ${type}`;
@@ -49,42 +51,36 @@ function showMessage(element, message, type) {
     }, 3000);
 }
 
-// Función para limpiar el formulario
 function clearForm() {
     itemForm.reset();
     itemIdInput.value = '';
     submitBtn.textContent = 'Agregar Ítem';
     cancelEditBtn.style.display = 'none';
     isEditing = false;
-    currentImageUrl = ''; // <--- NUEVA LÍNEA: Limpia la URL de la imagen
-    imagenPreview.style.display = 'none'; // <--- NUEVA LÍNEA: Oculta la vista previa
+    currentImageUrl = '';
+    imagenPreview.style.display = 'none';
     populateCategorySelect('');
 }
 
-// <--- NUEVA FUNCIÓN: Lógica para subir la imagen a Cloudinary
 async function uploadImage(file) {
     if (!file) return null;
-
     const formData = new FormData();
     formData.append('file', file);
     formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
-
     try {
         const response = await fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`, {
             method: 'POST',
             body: formData
         });
         const data = await response.json();
-        return data.secure_url; // Devuelve la URL segura de la imagen
+        return data.secure_url;
     } catch (error) {
         console.error('Error al subir la imagen a Cloudinary:', error);
         showMessage(formMessage, 'Error al subir la imagen.', 'error');
         return null;
     }
 }
-// Fin de la nueva función
 
-// Event Listener para mostrar la vista previa de la imagen
 imagenFileInput.addEventListener('change', (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -101,7 +97,6 @@ imagenFileInput.addEventListener('change', (e) => {
 });
 
 
-// Función para poblar el select de categorías basado en el tipo seleccionado
 function populateCategorySelect(selectedType, selectedCategory = '') {
     categoriaInput.innerHTML = '<option value="">Selecciona una categoría</option>';
     if (selectedType && categoryMap[selectedType]) {
@@ -117,13 +112,74 @@ function populateCategorySelect(selectedType, selectedCategory = '') {
     }
 }
 
-// Event Listener para el cambio del select de Tipo
 tipoInput.addEventListener('change', () => {
     populateCategorySelect(tipoInput.value);
 });
 
 
-// Función para cargar los ítems del menú
+// NUEVA FUNCIÓN: Llenar el filtro de categorías en la lista de ítems
+function populateFilterCategories(items) {
+  const uniqueCategories = new Set(items.map(item => item.categoria).filter(Boolean));
+  filterCategorySelect.innerHTML = '<option value="todos">Todas las Categorías</option>';
+  uniqueCategories.forEach(category => {
+    const option = document.createElement('option');
+    option.value = category;
+    option.textContent = capitalize(category);
+    filterCategorySelect.appendChild(option);
+  });
+}
+
+// NUEVA FUNCIÓN: Renderizar los ítems filtrados
+function renderItems(itemsToRender) {
+    itemsList.innerHTML = '';
+    if (itemsToRender.length === 0) {
+        listMessage.textContent = 'No se encontraron ítems.';
+        listMessage.className = 'message';
+        listMessage.style.display = 'block';
+        return;
+    }
+    listMessage.style.display = 'none';
+    itemsToRender.forEach(item => {
+        const itemCard = document.createElement('div');
+        itemCard.className = 'item-card';
+        itemCard.innerHTML = `
+            <img src="${item.imagen || 'https://via.placeholder.com/150?text=No+Image'}" alt="${item.nombre}">
+            <div class="item-card-content">
+                <h3>${item.nombre}</h3>
+                <p class="price">$${item.precio.toLocaleString('es-CO')}</p>
+                <p>${item.descripcion || 'Sin descripción.'}</p>
+                <p class="category-type">Tipo: ${capitalize(item.tipo || 'N/A')} | Categoría: ${capitalize(item.categoria || 'N/A')}</p>
+                ${item.destacado ? '<span class="badge">⭐ Destacado</span>' : ''}
+                <div class="item-card-actions">
+                    <button class="edit-btn" data-id="${item._id}">Editar</button>
+                    <button class="delete-btn" data-id="${item._id}">Eliminar</button>
+                </div>
+            </div>
+        `;
+        itemsList.appendChild(itemCard);
+    });
+    document.querySelectorAll('.edit-btn').forEach(button => {
+        button.addEventListener('click', (e) => editItem(e.target.dataset.id));
+    });
+    document.querySelectorAll('.delete-btn').forEach(button => {
+        button.addEventListener('click', (e) => deleteItem(e.target.dataset.id));
+    });
+}
+
+// NUEVA FUNCIÓN: Filtrar y buscar items
+function filterAndSearchItems() {
+    const searchTerm = searchInput.value.toLowerCase();
+    const selectedCategory = filterCategorySelect.value;
+    const filteredItems = allItems.filter(item => {
+        const matchesSearch = item.nombre.toLowerCase().includes(searchTerm) || 
+                              item.descripcion.toLowerCase().includes(searchTerm);
+        const matchesCategory = selectedCategory === 'todos' || item.categoria === selectedCategory;
+        return matchesSearch && matchesCategory;
+    });
+    renderItems(filteredItems);
+}
+
+
 async function loadItems() {
     listMessage.textContent = 'Cargando ítems...';
     listMessage.className = 'message';
@@ -132,50 +188,18 @@ async function loadItems() {
 
     try {
         const response = await fetch(`${API_BASE_URL}/items`);
-        const items = await response.json();
-
-        if (response.ok) {
-            if (items.length === 0) {
-                listMessage.textContent = 'No hay ítems en el menú.';
-                listMessage.className = 'message';
-            } else {
-                listMessage.style.display = 'none';
-                items.forEach(item => {
-                    const itemCard = document.createElement('div');
-                    itemCard.className = 'item-card';
-                    itemCard.innerHTML = `
-                        <img src="${item.imagen || 'https://via.placeholder.com/150?text=No+Image'}" alt="${item.nombre}">
-                        <div class="item-card-content">
-                            <h3>${item.nombre}</h3>
-                            <p class="price">$${item.precio.toLocaleString('es-CO')}</p>
-                            <p>${item.descripcion || 'Sin descripción.'}</p>
-                            <p class="category-type">Tipo: ${capitalize(item.tipo || 'N/A')} | Categoría: ${capitalize(item.categoria || 'N/A')}</p>
-                            ${item.destacado ? '<span class="badge">⭐ Destacado</span>' : ''}
-                            <div class="item-card-actions">
-                                <button class="edit-btn" data-id="${item._id}">Editar</button>
-                                <button class="delete-btn" data-id="${item._id}">Eliminar</button>
-                            </div>
-                        </div>
-                    `;
-                    itemsList.appendChild(itemCard);
-                });
-                document.querySelectorAll('.edit-btn').forEach(button => {
-                    button.addEventListener('click', (e) => editItem(e.target.dataset.id));
-                });
-                document.querySelectorAll('.delete-btn').forEach(button => {
-                    button.addEventListener('click', (e) => deleteItem(e.target.dataset.id));
-                });
-            }
-        } else {
-            showMessage(listMessage, `Error al cargar ítems: ${items.message}`, 'error');
+        allItems = await response.json(); // Cargar todos los ítems
+        if (!response.ok) {
+            throw new Error(`Error: ${response.status}`);
         }
+        populateFilterCategories(allItems); // Llenar el select de categorías
+        filterAndSearchItems(); // Renderizar con todos los ítems al inicio
     } catch (error) {
         console.error('Error al cargar ítems:', error);
         showMessage(listMessage, 'Error de conexión al cargar los ítems.', 'error');
     }
 }
 
-// Función para enviar el formulario (Agregar/Editar)
 itemForm.addEventListener('submit', async (e) => {
     e.preventDefault();
 
@@ -184,26 +208,23 @@ itemForm.addEventListener('submit', async (e) => {
         return;
     }
 
-    // <--- NUEVA LÓGICA DE SUBIDA DE IMAGEN
     const file = imagenFileInput.files[0];
-    let imageUrlToSave = currentImageUrl; // Mantener la imagen actual si no se sube una nueva
-
+    let imageUrlToSave = currentImageUrl;
     if (file) {
         showMessage(formMessage, 'Subiendo imagen...', 'info');
-        submitBtn.disabled = true; // Deshabilitar el botón mientras se sube
+        submitBtn.disabled = true;
         imageUrlToSave = await uploadImage(file);
         submitBtn.disabled = false;
         if (!imageUrlToSave) {
-            return; // Detener si la subida de imagen falla
+            return;
         }
     }
-    // Fin de la nueva lógica
 
     const itemData = {
         nombre: nombreInput.value,
         precio: parseFloat(precioInput.value),
         descripcion: descripcionInput.value,
-        imagen: imageUrlToSave, // Usar la URL de la imagen subida o la existente
+        imagen: imageUrlToSave,
         tipo: tipoInput.value,
         categoria: categoriaInput.value,
         destacado: destacadoInput.checked
@@ -211,8 +232,6 @@ itemForm.addEventListener('submit', async (e) => {
 
     try {
         let response;
-        let result;
-
         if (isEditing) {
             const itemId = itemIdInput.value;
             response = await fetch(`${API_BASE_URL}/items/${itemId}`, {
@@ -220,30 +239,20 @@ itemForm.addEventListener('submit', async (e) => {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(itemData)
             });
-            result = await response.json();
-
-            if (response.ok) {
-                showMessage(formMessage, 'Ítem actualizado exitosamente!', 'success');
-                clearForm();
-                loadItems();
-            } else {
-                showMessage(formMessage, `Error al actualizar: ${result.message}`, 'error');
-            }
         } else {
             response = await fetch(`${API_BASE_URL}/items`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(itemData)
             });
-            result = await response.json();
-
-            if (response.ok) {
-                showMessage(formMessage, 'Ítem agregado exitosamente!', 'success');
-                clearForm();
-                loadItems();
-            } else {
-                showMessage(formMessage, `Error al agregar: ${result.message}`, 'error');
-            }
+        }
+        if (response.ok) {
+            showMessage(formMessage, `Ítem ${isEditing ? 'actualizado' : 'agregado'} exitosamente!`, 'success');
+            clearForm();
+            loadItems();
+        } else {
+            const result = await response.json();
+            showMessage(formMessage, `Error: ${result.message}`, 'error');
         }
     } catch (error) {
         console.error('Error al enviar formulario:', error);
@@ -251,31 +260,26 @@ itemForm.addEventListener('submit', async (e) => {
     }
 });
 
-// Función para precargar el formulario con datos de un ítem para edición
 async function editItem(id) {
     try {
         const response = await fetch(`${API_BASE_URL}/items/${id}`);
         const item = await response.json();
-
         if (response.ok) {
             itemIdInput.value = item._id;
             nombreInput.value = item.nombre;
             precioInput.value = item.precio;
             descripcionInput.value = item.descripcion;
-            
-            currentImageUrl = item.imagen; // <--- NUEVA LÍNEA: Guarda la URL de la imagen actual
-            if (currentImageUrl) { // <--- NUEVA LÍNEA
-                imagenPreview.src = currentImageUrl; // <--- NUEVA LÍNEA: Muestra la vista previa
-                imagenPreview.style.display = 'block'; // <--- NUEVA LÍNEA
-            } else { // <--- NUEVA LÍNEA
-                imagenPreview.style.display = 'none'; // <--- NUEVA LÍNEA
-            } // <--- NUEVA LÍNEA
-
+            currentImageUrl = item.imagen;
+            if (currentImageUrl) {
+                imagenPreview.src = currentImageUrl;
+                imagenPreview.style.display = 'block';
+            } else {
+                imagenPreview.src = '';
+                imagenPreview.style.display = 'none';
+            }
             tipoInput.value = item.tipo;
             populateCategorySelect(item.tipo, item.categoria);
-
             destacadoInput.checked = item.destacado;
-
             submitBtn.textContent = 'Actualizar Ítem';
             cancelEditBtn.style.display = 'inline-block';
             isEditing = true;
@@ -289,18 +293,13 @@ async function editItem(id) {
     }
 }
 
-// Función para eliminar un ítem
 async function deleteItem(id) {
     if (!confirm('¿Estás seguro de que quieres eliminar este ítem?')) {
         return;
     }
-
     try {
-        const response = await fetch(`${API_BASE_URL}/items/${id}`, {
-            method: 'DELETE'
-        });
+        const response = await fetch(`${API_BASE_URL}/items/${id}`, { method: 'DELETE' });
         const result = await response.json();
-
         if (response.ok) {
             showMessage(listMessage, 'Ítem eliminado exitosamente!', 'success');
             loadItems();
@@ -313,8 +312,10 @@ async function deleteItem(id) {
     }
 }
 
-// Event listener para el botón cancelar edición
 cancelEditBtn.addEventListener('click', clearForm);
 
-// Cargar ítems al cargar la página
+// NUEVOS EVENT LISTENERS para búsqueda y filtro
+searchInput.addEventListener('input', filterAndSearchItems);
+filterCategorySelect.addEventListener('change', filterAndSearchItems);
+
 document.addEventListener('DOMContentLoaded', loadItems);

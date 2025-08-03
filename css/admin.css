@@ -190,4 +190,61 @@
     .items-grid {
         grid-template-columns: 1fr;
     }
+    /* Estilos para el buscador y filtro */
+.search-filter-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+#searchInput {
+    flex: 2;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+    margin-right: 10px;
+}
+
+#filterCategorySelect {
+    flex: 1;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+/* Estilos para el nuevo pie de página */
+.admin-footer {
+  text-align: center;
+  padding: 20px;
+  background-color: #f4f4f4;
+  border-top: 1px solid #ddd;
+  color: #555;
+  font-size: 0.9rem;
+  margin-top: 20px;
+  border-radius: 8px;
+}
+
+.admin-footer a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.admin-footer a:hover {
+  text-decoration: underline;
+}
+
+/* Ajustes de responsividad para el buscador/filtro */
+@media (max-width: 768px) {
+  .search-filter-container {
+    flex-direction: column;
+    gap: 10px;
+  }
+  #searchInput, #filterCategorySelect {
+    width: 100%;
+    margin-right: 0;
+  }
+}
 }
