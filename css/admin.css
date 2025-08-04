@@ -293,4 +293,21 @@ body {
         width: 100%;
         margin-right: 0;
     }
+    /* Estilos para los iconos de redes sociales en el footer */
+.social-icons-footer {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    gap: 20px; /* Espacio entre los iconos */
+}
+
+.social-icons-footer a {
+    color: #FFD700; /* Color dorado para los iconos */
+    font-size: 1.8rem; /* Tamaño del icono */
+    transition: color 0.3s ease;
+}
+
+.social-icons-footer a:hover {
+    color: #fff; /* Color blanco al pasar el ratón */
+}
 }
