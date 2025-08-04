@@ -1,47 +1,63 @@
 /* css/admin.css */
 
+/* Estilos de la página principal */
+body {
+    font-family: 'Open Sans', sans-serif;
+    background-color: #111;
+    color: #fff;
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+/* Estilos del contenedor principal */
 .admin-container {
     max-width: 900px;
     margin: 20px auto;
     padding: 20px;
-    background-color: #f4f4f4;
+    background-color: #222; /* Fondo oscuro */
     border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    color: #333;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    color: #fff;
 }
 
+/* Encabezados */
 .admin-container h1, .admin-container h2 {
-    color: #333;
+    color: #FFD700; /* Dorado */
     font-family: 'Cinzel', serif;
     text-align: center;
     margin-bottom: 20px;
 }
 
+/* Secciones del formulario y la lista */
 .admin-form-section, .admin-list-section {
-    background-color: #fff;
+    background-color: #333; /* Gris oscuro */
     padding: 20px;
     margin-bottom: 20px;
     border-radius: 8px;
-    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
 }
 
+/* Estilos del formulario */
 .item-form label {
     display: block;
     margin-bottom: 5px;
     font-weight: bold;
-    color: #555;
+    color: #FFD700; /* Dorado */
 }
 
 .item-form input[type="text"],
 .item-form input[type="number"],
-.item-form input[type="url"],
+.item-form input[type="file"],
+.item-form select,
 .item-form textarea {
     width: calc(100% - 20px);
     padding: 10px;
     margin-bottom: 15px;
-    border: 1px solid #ddd;
+    border: 1px solid #FFD700;
     border-radius: 4px;
     font-size: 1rem;
+    background-color: #444; /* Fondo del input */
+    color: #fff; /* Texto blanco */
 }
 
 .item-form textarea {
@@ -55,29 +71,33 @@
 }
 
 .item-form button {
-    background-color: #e50914; /* Rojo Ruta 66 */
-    color: white;
+    background-color: #FFD700; /* Dorado */
+    color: #000;
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     font-size: 1rem;
-    transition: background-color 0.3s ease;
+    font-family: 'Cinzel', serif;
+    transition: background-color 0.3s ease, color 0.3s ease;
     margin-right: 10px;
 }
 
 .item-form button:hover {
-    background-color: #c00c12;
+    background-color: #fff;
+    color: #000;
 }
 
 #cancelEditBtn {
-    background-color: #6c757d; /* Gris para cancelar */
+    background-color: #666; /* Gris para cancelar */
+    color: #fff;
 }
 
 #cancelEditBtn:hover {
-    background-color: #5a6268;
+    background-color: #888;
 }
 
+/* Mensajes de feedback */
 .message {
     margin-top: 10px;
     padding: 10px;
@@ -87,17 +107,49 @@
 }
 
 .message.success {
-    background-color: #d4edda;
-    color: #155724;
-    border: 1px solid #c3e6cb;
+    background-color: #28a745;
+    color: white;
 }
 
 .message.error {
-    background-color: #f8d7da;
-    color: #721c24;
-    border: 1px solid #f5c6cb;
+    background-color: #dc3545;
+    color: white;
 }
 
+/* Estilos para el buscador y filtro */
+.search-filter-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #333;
+    border-radius: 8px;
+}
+
+#searchInput, #filterCategorySelect {
+    padding: 8px 12px;
+    border: 1px solid #FFD700;
+    border-radius: 4px;
+    font-size: 1rem;
+    background-color: #444;
+    color: #fff;
+    margin-right: 10px;
+}
+
+#searchInput {
+    flex: 2;
+}
+
+#filterCategorySelect {
+    flex: 1;
+}
+
+#searchInput::placeholder {
+    color: #aaa;
+}
+
+/* Estilos de la lista de ítems */
 .items-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -105,12 +157,12 @@
 }
 
 .item-card {
-    background-color: #f9f9f9;
-    border: 1px solid #eee;
+    background-color: #444;
+    border: 1px solid #FFD700;
     border-radius: 8px;
     overflow: hidden;
     text-align: center;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
     display: flex;
     flex-direction: column;
 }
@@ -119,7 +171,7 @@
     width: 100%;
     height: 180px;
     object-fit: cover;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid #FFD700;
 }
 
 .item-card-content {
@@ -133,7 +185,7 @@
 .item-card-content h3 {
     margin-top: 0;
     margin-bottom: 5px;
-    color: #e50914;
+    color: #FFD700;
     font-family: 'Cinzel', serif;
     font-size: 1.2rem;
 }
@@ -141,47 +193,90 @@
 .item-card-content p {
     margin-bottom: 5px;
     font-size: 0.95rem;
-    color: #666;
+    color: #ccc;
 }
 
 .item-card-content .price {
     font-weight: bold;
-    color: #333;
+    color: #FFD700;
     font-size: 1.1rem;
     margin-bottom: 10px;
 }
 
 .item-card-content .category-type {
     font-size: 0.85rem;
-    color: #888;
+    color: #aaa;
     margin-bottom: 10px;
 }
 
 .item-card-actions button {
-    background-color: #007bff;
-    color: white;
+    background-color: #FFD700;
+    color: #000;
     padding: 8px 12px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     font-size: 0.9rem;
     margin: 5px;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .item-card-actions button:hover {
-    background-color: #0056b3;
+    background-color: #fff;
+    color: #000;
 }
 
 .item-card-actions .delete-btn {
-    background-color: #dc3545;
+    background-color: #dc3545; /* Rojo de eliminar */
 }
 
 .item-card-actions .delete-btn:hover {
     background-color: #c82333;
 }
 
-/* Responsividad básica */
+/* Estilos para el nuevo pie de página */
+.admin-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 30px 20px;
+    background-color: #000; /* Fondo negro */
+    border-top: 2px solid #FFD700; /* Línea dorada */
+    color: #fff; /* Texto blanco */
+    font-size: 1rem;
+    margin-top: 40px;
+    font-family: 'Cinzel', serif; /* Fuente del logo */
+    border-radius: 0 0 8px 8px;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.admin-footer img {
+    max-width: 150px;
+    height: auto;
+    margin-bottom: 15px;
+    border: 2px solid #FFD700;
+    border-radius: 8px;
+}
+
+.admin-footer p {
+    margin: 5px 0;
+    color: #FFD700; /* Texto dorado */
+}
+
+.admin-footer a {
+    color: #FFD700; /* Enlace dorado */
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.admin-footer a:hover {
+    color: #fff; /* Texto blanco al pasar el ratón */
+    text-decoration: underline;
+}
+
+/* Responsividad */
 @media (max-width: 768px) {
     .admin-container {
         margin: 10px;
@@ -190,61 +285,12 @@
     .items-grid {
         grid-template-columns: 1fr;
     }
-    /* Estilos para el buscador y filtro */
-.search-filter-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-#searchInput {
-    flex: 2;
-    padding: 8px 12px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 1rem;
-    margin-right: 10px;
-}
-
-#filterCategorySelect {
-    flex: 1;
-    padding: 8px 12px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 1rem;
-}
-
-/* Estilos para el nuevo pie de página */
-.admin-footer {
-  text-align: center;
-  padding: 20px;
-  background-color: #f4f4f4;
-  border-top: 1px solid #ddd;
-  color: #555;
-  font-size: 0.9rem;
-  margin-top: 20px;
-  border-radius: 8px;
-}
-
-.admin-footer a {
-  color: #007bff;
-  text-decoration: none;
-}
-
-.admin-footer a:hover {
-  text-decoration: underline;
-}
-
-/* Ajustes de responsividad para el buscador/filtro */
-@media (max-width: 768px) {
-  .search-filter-container {
-    flex-direction: column;
-    gap: 10px;
-  }
-  #searchInput, #filterCategorySelect {
-    width: 100%;
-    margin-right: 0;
-  }
-}
+    .search-filter-container {
+        flex-direction: column;
+        gap: 10px;
+    }
+    #searchInput, #filterCategorySelect {
+        width: 100%;
+        margin-right: 0;
+    }
 }
